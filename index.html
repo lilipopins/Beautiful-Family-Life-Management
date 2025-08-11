@@ -6,30 +6,33 @@
   <title>Beautiful Family Life — Organisez, partagez, respirez… en famille.</title>
   <meta name="description" content="Application et ressources pour simplifier le quotidien familial : agenda partagé, tâches, repas, bien‑être, budget et communauté.">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=interactive3_1">
+  <link rel="stylesheet" href="styles.css?v=interactive3">
 </head>
 <body>
 
-<!-- HERO (unique au chargement) -->
+<!-- HERO (seule visible au chargement) -->
 <section class="hero-banner reveal show">
   <div class="container narrow">
-    <div class="tabbar" role="tablist" aria-label="Navigation principale">
-      <strong>🌼 BFL</strong>
-      <button data-target="modules" role="tab">Modules</button>
-      <button data-target="tarifs" role="tab">Tarifs</button>
-      <button data-target="communaute" role="tab">Communauté</button>
-      <button data-target="contact" role="tab">Contact</button>
-      <button data-target="mentions" role="tab">Mentions</button>
-      <button data-target="none" role="tab" title="Revenir à l’affiche">Accueil</button>
-    </div>
-    <div class="overlay-mask" aria-hidden="true"></div>
     <img class="responsive" src="page-d-accueil.png" alt="Affiche d’accueil de Beautiful Family Life" loading="eager">
   </div>
 </section>
 
+<!-- Barre de présentation sous la première image -->
+<div class="tabbar">
+  <div class="container inner">
+    <strong>🌼 Beautiful Family Life</strong>
+    <button data-target="modules">Modules</button>
+    <button data-target="tarifs">Tarifs</button>
+    <button data-target="communaute">Communauté</button>
+    <button data-target="contact">Contact</button>
+    <button data-target="mentions">Mentions</button>
+    <button data-target="none" title="Revenir à l’affiche">Accueil</button>
+  </div>
+</div>
+
 <main class="container narrow">
 
-  <!-- Sections masquées par défaut -->
+  <!-- SECTIONS masquées par défaut; affichées au clic -->
   <section id="modules" class="app-section">
     <div class="section-inner reveal">
       <h2>Modules & fonctionnalités</h2>
@@ -127,6 +130,6 @@
 <!-- Back to top -->
 <button id="backToTop" aria-label="Retour en haut">↑</button>
 
-<script src="script.js?v=interactive3_1"></script>
+<script src="script.js?v=interactive3"></script>
 </body>
 </html>
