@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lilipopins.github.io/Beautiful-Family-Life-Management/sitemap.xml
