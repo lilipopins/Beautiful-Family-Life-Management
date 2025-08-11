@@ -33,7 +33,6 @@ backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smo
 const buttons = document.querySelectorAll('.tabbar button');
 const sections = document.querySelectorAll('.app-section');
 function setActive(target){
-  // target = section id or "none"
   sections.forEach(s => s.classList.remove('active'));
   buttons.forEach(b => b.classList.remove('active'));
   if (target && target !== 'none'){
@@ -41,28 +40,21 @@ function setActive(target){
     if (el){
       el.classList.add('active');
       document.querySelector(`.tabbar button[data-target="${target}"]`)?.classList.add('active');
-      // scroll to tab bar so section starts under it
-      document.querySelector('.tabbar').scrollIntoView({behavior:'smooth', block:'start'});
-      // reveal animation
+      document.querySelector('.hero-banner').scrollIntoView({behavior:'smooth', block:'start'});
       el.querySelectorAll('.reveal').forEach(x=>x.classList.add('show'));
-      // update hash
       history.replaceState(null, '', `#${target}`);
     }
   } else {
-    // show only hero + footer
     history.replaceState(null, '', '#');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 buttons.forEach(btn => btn.addEventListener('click', ()=> setActive(btn.dataset.target)));
 
-// Deep-link support on load
+// Deep-link on load
 window.addEventListener('DOMContentLoaded', ()=>{
   const hash = (location.hash || '').replace('#','');
-  if (hash){
-    setActive(hash);
-  }
-  // reveal hero/footer
+  if (hash){ setActive(hash); }
   document.querySelectorAll('section.hero-banner, footer').forEach(x=>x.classList.add('show'));
 });
 
