@@ -10,8 +10,7 @@ header{position:sticky;top:0;background:linear-gradient(180deg,var(--bg-start),v
 .nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;font-weight:600}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:999px;background:linear-gradient(180deg,var(--brand),#ff996f);color:#fff;font-weight:700;box-shadow:var(--shadow);border:none;cursor:pointer}
 .btn.alt{background:linear-gradient(180deg,var(--brand-2),#34caba)}
-
-section{padding:40px 0}  /* tighter spacing site-wide */
+section{padding:40px 0}
 h2{font-size:30px;margin:0 0 14px}
 small.muted{color:var(--muted)}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
@@ -20,17 +19,31 @@ small.muted{color:var(--muted)}
 footer{padding:24px 0;color:var(--muted)}
 img.responsive{width:100%;height:auto;border-radius:12px;box-shadow:var(--shadow)}
 
-/* Full-bleed hero image */
+/* Full-bleed, fixed-height hero (60% viewport height) */
 .hero-banner{padding:0;margin:0}
-.hero-banner .banner{display:block;width:100vw;max-width:100vw;height:auto;border-radius:0;box-shadow:none;margin:0;position:relative;left:50%;right:50%;transform:translateX(-50%);}
+.hero-banner .banner{
+  display:block;
+  width:100vw;
+  max-width:100vw;
+  height:60vh;
+  object-fit:cover;
+  object-position:center;
+  border-radius:0;
+  box-shadow:none;
+  margin:0;
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
+}
 
-/* Narrow main to focus content */
+/* Slightly narrower main to focus content */
 .container.narrow{max-width:960px}
 
-/* Responsive */
+/* Responsive tweaks */
 @media (max-width:900px){
   .grid-2{grid-template-columns:1fr}
   .grid-3{grid-template-columns:1fr}
   section{padding:28px 0}
   .nav ul{gap:12px}
+  .hero-banner .banner{height:50vh} /* a bit shorter on small screens */
 }
