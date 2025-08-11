@@ -19,13 +19,33 @@ img.responsive{width:100%;height:auto;border-radius:12px;box-shadow:var(--shadow
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
 .reveal.show{opacity:1;transform:translateY(0)}
 
-/* Tabbar (sticky) */
-.tabbar{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,var(--bg-start),var(--bg-end));border-bottom:1px solid rgba(0,0,0,.06);padding:10px 0;backdrop-filter:saturate(120%) blur(6px)}
-.tabbar .inner{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.tabbar button{border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);background:#fff}
+/* HERO overlay controls */
+.hero-banner{position:relative;padding:40px 0 20px}
+.hero-banner .overlay-mask{
+  position:absolute;inset:0 0 auto 0;height:120px; /* mask area at top */
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.65),transparent);
+  border-top-left-radius:12px;border-top-right-radius:12px;
+  pointer-events:none;
+}
+.tabbar{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  z-index:40;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(120%) blur(6px);
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:999px;
+  padding:8px;
+  box-shadow:var(--shadow);
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  max-width:95%;
+}
+.tabbar strong{margin-left:8px;margin-right:4px}
+.tabbar button{
+  border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;background:#fff
+}
 .tabbar button.active{background:linear-gradient(180deg,var(--brand-2),#34caba);color:#fff}
 
-/* Sections switching */
+/* Section switching */
 .app-section{display:none}
 .app-section.active{display:block}
 .app-section .section-inner{padding-top:10px}
@@ -40,7 +60,3 @@ img.responsive{width:100%;height:auto;border-radius:12px;box-shadow:var(--shadow
 /* Back to top */
 #backToTop{position:fixed;right:18px;bottom:18px;display:none;border:none;border-radius:999px;padding:12px 14px;background:linear-gradient(180deg,var(--brand-2),#34caba);color:#fff;font-weight:700;box-shadow:var(--shadow);cursor:pointer;z-index:60}
 #backToTop.show{display:block}
-
-/* Skip link */
-.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;background:#000;color:#fff;padding:8px 12px;border-radius:8px;z-index:100}

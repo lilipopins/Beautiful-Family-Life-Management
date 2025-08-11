@@ -6,52 +6,48 @@
   <title>Beautiful Family Life — Organisez, partagez, respirez… en famille.</title>
   <meta name="description" content="Application et ressources pour simplifier le quotidien familial : agenda partagé, tâches, repas, bien‑être, budget et communauté.">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.min.css?v=final">
+  <link rel="stylesheet" href="styles.css?v=interactive3_1">
 </head>
 <body>
 
-<a class="skip-link" href="#main">Aller au contenu</a>
-
-<!-- HERO -->
+<!-- HERO (unique au chargement) -->
 <section class="hero-banner reveal show">
   <div class="container narrow">
-    <img class="responsive" src="page-d-accueil.png" alt="Affiche d’accueil de Beautiful Family Life" loading="eager" width="1600" height="900" style="aspect-ratio:16/9">
+    <div class="tabbar" role="tablist" aria-label="Navigation principale">
+      <strong>🌼 BFL</strong>
+      <button data-target="modules" role="tab">Modules</button>
+      <button data-target="tarifs" role="tab">Tarifs</button>
+      <button data-target="communaute" role="tab">Communauté</button>
+      <button data-target="contact" role="tab">Contact</button>
+      <button data-target="mentions" role="tab">Mentions</button>
+      <button data-target="none" role="tab" title="Revenir à l’affiche">Accueil</button>
+    </div>
+    <div class="overlay-mask" aria-hidden="true"></div>
+    <img class="responsive" src="page-d-accueil.png" alt="Affiche d’accueil de Beautiful Family Life" loading="eager">
   </div>
 </section>
 
-<!-- Barre d’onglets -->
-<div class="tabbar" role="tablist" aria-label="Navigation principale">
-  <div class="container inner">
-    <strong>🌼 Beautiful Family Life</strong>
-    <button role="tab" aria-selected="false" data-target="modules">Modules</button>
-    <button role="tab" aria-selected="false" data-target="tarifs">Tarifs</button>
-    <button role="tab" aria-selected="false" data-target="communaute">Communauté</button>
-    <button role="tab" aria-selected="false" data-target="contact">Contact</button>
-    <button role="tab" aria-selected="false" data-target="mentions">Mentions</button>
-    <button role="tab" aria-selected="true" data-target="none" title="Revenir à l’affiche">Accueil</button>
-  </div>
-</div>
+<main class="container narrow">
 
-<main id="main" class="container narrow">
-
-  <section id="modules" class="app-section" aria-hidden="true">
+  <!-- Sections masquées par défaut -->
+  <section id="modules" class="app-section">
     <div class="section-inner reveal">
       <h2>Modules & fonctionnalités</h2>
       <div style="margin-top:16px">
-        <img class="responsive lightboxable" src="modules-et-fonctionnalites.png" alt="Aperçu des modules" loading="lazy" width="1600" height="1000" style="aspect-ratio:16/10">
+        <img class="responsive lightboxable" src="modules-et-fonctionnalites.png" alt="Aperçu des modules">
       </div>
     </div>
   </section>
 
-  <section id="tarifs" class="app-section" aria-hidden="true">
+  <section id="tarifs" class="app-section">
     <div class="section-inner reveal">
       <h2>Tarifs & offre Premium</h2>
-      <div style="margin-top:16px"><img class="responsive lightboxable" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium" loading="lazy" width="1600" height="1200" style="aspect-ratio:4/3"></div>
-      <div style="margin-top:16px"><img class="responsive lightboxable" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium" loading="lazy" width="1600" height="1200" style="aspect-ratio:4/3"></div>
+      <div style="margin-top:16px"><img class="responsive lightboxable" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium"></div>
+      <div style="margin-top:16px"><img class="responsive lightboxable" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium"></div>
     </div>
   </section>
 
-  <section id="communaute" class="app-section" aria-hidden="true">
+  <section id="communaute" class="app-section">
     <div class="section-inner reveal">
       <h2>Communauté & ressources</h2>
       <div class="grid-2">
@@ -60,13 +56,13 @@
           <p class="lead">Échangez avec d’autres familles, partagez des astuces et avancez ensemble.</p>
         </div>
         <div>
-          <img class="responsive lightboxable" src="communaute-et-ressources.png" alt="Communauté et ressources" loading="lazy" width="1600" height="1200" style="aspect-ratio:4/3">
+          <img class="responsive lightboxable" src="communaute-et-ressources.png" alt="Communauté et ressources">
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="app-section" aria-hidden="true">
+  <section id="contact" class="app-section">
     <div class="section-inner reveal">
       <h2>Contact & support</h2>
       <div class="grid-2">
@@ -81,13 +77,13 @@
           <p class="lead" style="margin-top:12px">support@familylife.com • +590 690 927 084</p>
         </div>
         <div>
-          <img class="responsive lightboxable" src="contact-et-support.png" alt="Contact et support" loading="lazy" width="1600" height="1200" style="aspect-ratio:4/3">
+          <img class="responsive lightboxable" src="contact-et-support.png" alt="Contact et support">
         </div>
       </div>
     </div>
   </section>
 
-  <section id="mentions" class="app-section" aria-hidden="true">
+  <section id="mentions" class="app-section">
     <div class="section-inner reveal">
       <h2>Mentions légales • CGU • Confidentialité</h2>
       <div class="grid-2">
@@ -119,7 +115,7 @@
   </div>
 </footer>
 
-<!-- Lightbox -->
+<!-- Lightbox overlay -->
 <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
   <button class="close" aria-label="Fermer">✕</button>
   <div style="text-align:center">
@@ -131,6 +127,6 @@
 <!-- Back to top -->
 <button id="backToTop" aria-label="Retour en haut">↑</button>
 
-<script src="script.min.js?v=final"></script>
+<script src="script.js?v=interactive3_1"></script>
 </body>
 </html>

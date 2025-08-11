@@ -6,13 +6,17 @@ const lbCap = document.getElementById('lightboxCaption');
 document.querySelectorAll('img.lightboxable').forEach(img => {
   img.style.cursor = 'zoom-in';
   img.addEventListener('click', () => {
-    lbImg.src = img.src; lbImg.alt = img.alt || ''; lbCap.textContent = img.alt || '';
-    lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden', 'false');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt || '';
+    lbCap.textContent = img.alt || '';
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
   });
 });
 lightbox.addEventListener('click', (e) => {
   if (e.target === lightbox || e.target.classList.contains('close')) {
-    lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true');
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
     lbImg.src = ''; lbCap.textContent = '';
   }
 });
@@ -25,28 +29,24 @@ window.addEventListener('scroll', () => {
 });
 backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// Tabs behavior — show only one section at a time + ARIA
+// Tabs behavior — show only one section at a time
 const buttons = document.querySelectorAll('.tabbar button');
 const sections = document.querySelectorAll('.app-section');
 function setActive(target){
-  sections.forEach(s => { s.classList.remove('active'); s.setAttribute('aria-hidden','true'); });
+  sections.forEach(s => s.classList.remove('active'));
   buttons.forEach(b => b.classList.remove('active'));
-  buttons.forEach(b => b.setAttribute('aria-selected','false'));
   if (target && target !== 'none'){
     const el = document.getElementById(target);
     if (el){
-      el.classList.add('active'); el.setAttribute('aria-hidden','false');
-      const btn = document.querySelector(`.tabbar button[data-target="${target}"]`);
-      btn?.classList.add('active'); btn?.setAttribute('aria-selected','true');
-      document.querySelector('.tabbar').scrollIntoView({behavior:'smooth', block:'start'});
+      el.classList.add('active');
+      document.querySelector(`.tabbar button[data-target="${target}"]`)?.classList.add('active');
+      document.querySelector('.hero-banner').scrollIntoView({behavior:'smooth', block:'start'});
       el.querySelectorAll('.reveal').forEach(x=>x.classList.add('show'));
       history.replaceState(null, '', `#${target}`);
     }
   } else {
     history.replaceState(null, '', '#');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const homeBtn = document.querySelector('.tabbar button[data-target="none"]');
-    homeBtn?.setAttribute('aria-selected','true');
   }
 }
 buttons.forEach(btn => btn.addEventListener('click', ()=> setActive(btn.dataset.target)));
@@ -57,3 +57,35 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if (hash){ setActive(hash); }
   document.querySelectorAll('section.hero-banner, footer').forEach(x=>x.classList.add('show'));
 });
+
+// Contact form (mailto fallback / Formspree optional)
+const form = document.getElementById('contactForm');
+if (form){
+  const statusEl = document.getElementById('formStatus');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!name || !email || !message){
+      statusEl.style.color = '#c53030';
+      statusEl.textContent = 'Merci de compléter tous les champs.';
+      return;
+    }
+    const endpoint = form.getAttribute('data-form-endpoint');
+    if (endpoint){
+      try {
+        const res = await fetch(endpoint, { method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form) });
+        if (res.ok){ statusEl.style.color = '#2f855a'; statusEl.textContent = 'Merci ! Votre message a été envoyé.'; form.reset(); }
+        else { throw new Error('Erreur réseau'); }
+      } catch (err){
+        statusEl.style.color = '#c53030';
+        statusEl.textContent = 'Envoi impossible pour le moment.';
+      }
+    } else {
+      const subject = encodeURIComponent('Contact — Beautiful Family Life');
+      const body = encodeURIComponent(`Nom: ${name}%0AEmail: ${email}%0A%0A${message}`);
+      window.location.href = `mailto:support@familylife.com?subject=${subject}&body=${body}`;
+    }
+  });
+}
