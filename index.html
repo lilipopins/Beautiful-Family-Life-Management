@@ -3,56 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Beautiful Family Life — Organisez, partagez, respirez… en famille.</title>
   <meta name="description" content="Application et ressources pour simplifier le quotidien familial : agenda partagé, tâches, repas, bien‑être, budget et communauté.">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://lilipopins.github.io/Beautiful-Family-Life-Management/">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Beautiful Family Life — Organisez, partagez, respirez… en famille.">
-  <meta property="og:description" content="Application et ressources pour simplifier le quotidien familial : agenda partagé, tâches, repas, bien‑être, budget et communauté.">
-  <meta property="og:url" content="https://lilipopins.github.io/Beautiful-Family-Life-Management/">
-  <meta property="og:image" content="https://lilipopins.github.io/Beautiful-Family-Life-Management/page-d-accueil.png">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Beautiful Family Life — Organisez, partagez, respirez… en famille.">
-  <meta name="twitter:description" content="Application et ressources pour simplifier le quotidien familial : agenda partagé, tâches, repas, bien‑être, budget et communauté.">
-  <meta name="twitter:image" content="https://lilipopins.github.io/Beautiful-Family-Life-Management/page-d-accueil.png">
-
-  <!-- Robots -->
-  <meta name="robots" content="index, follow">
-
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=interactive1">
 </head>
 <body>
 
-<!-- HERO as a normal responsive image inside the container -->
-<section class="hero-banner">
+<!-- HERO (image normale) -->
+<section class="hero-banner reveal">
   <div class="container narrow">
     <img class="responsive" src="page-d-accueil.png" alt="Affiche d’accueil de Beautiful Family Life" loading="eager">
   </div>
 </section>
 
 <main class="container narrow">
-  <section id="modules">
+  <section id="modules" class="reveal">
     <h2>Modules & fonctionnalités</h2>
     <div style="margin-top:16px">
-      <img class="responsive" src="modules-et-fonctionnalites.png" alt="Aperçu des modules" loading="lazy">
+      <img class="responsive lightboxable" src="modules-et-fonctionnalites.png" alt="Aperçu des modules">
     </div>
   </section>
 
-  <section id="tarifs">
+  <section id="tarifs" class="reveal">
     <h2>Tarifs & offre Premium</h2>
-    <div style="margin-top:16px"><img class="responsive" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium" loading="lazy"></div>
-    <div style="margin-top:16px"><img class="responsive" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium" loading="lazy"></div>
+    <div style="margin-top:16px"><img class="responsive lightboxable" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium"></div>
+    <div style="margin-top:16px"><img class="responsive lightboxable" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium"></div>
   </section>
 
-  <section id="communaute">
+  <section id="communaute" class="reveal">
     <h2>Communauté & ressources</h2>
     <div class="grid-2">
       <div class="card">
@@ -60,30 +39,32 @@
         <p class="lead">Échangez avec d’autres familles, partagez des astuces et avancez ensemble.</p>
       </div>
       <div>
-        <img class="responsive" src="communaute-et-ressources.png" alt="Communauté et ressources" loading="lazy">
+        <img class="responsive lightboxable" src="communaute-et-ressources.png" alt="Communauté et ressources">
       </div>
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="reveal">
     <h2>Contact & support</h2>
     <div class="grid-2">
       <div class="card">
-        <form onsubmit="event.preventDefault(); alert('Merci ! Nous vous répondrons rapidement.');">
-          <label>Nom<br><input required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px"></label><br><br>
-          <label>Email<br><input type="email" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px"></label><br><br>
-          <label>Message<br><textarea required rows="5" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px"></textarea></label><br><br>
+        <!-- If you later add a Formspree endpoint, set data-form-endpoint="https://formspree.io/f/XXXXX" -->
+        <form id="contactForm" data-form-endpoint="">
+          <label>Nom<br><input id="name" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px"></label><br><br>
+          <label>Email<br><input id="email" type="email" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px"></label><br><br>
+          <label>Message<br><textarea id="message" required rows="5" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px"></textarea></label><br><br>
           <button class="btn" type="submit">Envoyer ma demande</button>
+          <p id="formStatus" class="lead" style="margin-top:10px;color:#2c7a7b"></p>
         </form>
         <p class="lead" style="margin-top:12px">support@familylife.com • +590 690 927 084</p>
       </div>
       <div>
-        <img class="responsive" src="contact-et-support.png" alt="Contact et support" loading="lazy">
+        <img class="responsive lightboxable" src="contact-et-support.png" alt="Contact et support">
       </div>
     </div>
   </section>
 
-  <section id="mentions">
+  <section id="mentions" class="reveal">
     <h2>Mentions légales • CGU • Confidentialité</h2>
     <div class="grid-2">
       <div class="card">
@@ -106,10 +87,24 @@
   </section>
 </main>
 
-<footer>
+<footer class="reveal">
   <div class="container">
     <small>© 2025 Beautiful Family Life — Tous droits réservés. • <a href="#mentions">Mentions & Confidentialité</a></small>
   </div>
 </footer>
+
+<!-- Lightbox overlay -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+  <button class="close" aria-label="Fermer">✕</button>
+  <div style="text-align:center">
+    <img id="lightboxImg" src="" alt="">
+    <div class="caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<!-- Back to top -->
+<button id="backToTop" aria-label="Retour en haut">↑</button>
+
+<script src="script.js?v=interactive1"></script>
 </body>
 </html>
