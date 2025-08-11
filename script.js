@@ -83,3 +83,39 @@ form.addEventListener('submit', async (e) => {
     window.location.href = `mailto:support@familylife.com?subject=${subject}&body=${body}`;
   }
 });
+
+// Floating menu (drawer)
+const drawer = document.getElementById('drawer');
+const fab = document.getElementById('menuFab');
+const overlay = document.getElementById('overlay');
+
+function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('show'); drawer.setAttribute('aria-hidden','false'); }
+function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('show'); drawer.setAttribute('aria-hidden','true'); }
+
+fab.addEventListener('click', openDrawer);
+overlay.addEventListener('click', closeDrawer);
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+// Carousel logic
+function initCarousel(rootId, intervalMs=4000){
+  const root = document.getElementById(rootId);
+  if(!root) return;
+  const imgs = Array.from(root.querySelectorAll('img'));
+  let i = 0;
+  const show = (idx)=>{
+    imgs.forEach((im, k) => im.classList.toggle('active', k === idx));
+  };
+  show(0);
+  let timer = setInterval(()=>{ i = (i+1)%imgs.length; show(i); }, intervalMs);
+  root.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', (e)=>{
+      clearInterval(timer);
+      const dir = parseInt(btn.dataset.dir || "1", 10);
+      i = (i + dir + imgs.length) % imgs.length;
+      show(i);
+      timer = setInterval(()=>{ i = (i+1)%imgs.length; show(i); }, intervalMs);
+    });
+  });
+}
+
+initCarousel('tarifsCarousel', 4500);

@@ -6,9 +6,21 @@
   <title>Beautiful Family Life — Organisez, partagez, respirez… en famille.</title>
   <meta name="description" content="Application et ressources pour simplifier le quotidien familial : agenda partagé, tâches, repas, bien‑être, budget et communauté.">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=interactive1">
+  <link rel="stylesheet" href="styles.css?v=interactive2">
 </head>
 <body>
+
+<!-- Floating Menu Button -->
+<button id="menuFab" aria-label="Ouvrir le menu">☰</button>
+<div id="overlay"></div>
+<nav class="drawer" id="drawer" aria-hidden="true">
+  <h3>🌼 Beautiful Family Life</h3>
+  <a href="#modules">Modules</a>
+  <a href="#tarifs">Tarifs</a>
+  <a href="#communaute">Communauté</a>
+  <a href="#contact">Contact</a>
+  <a href="#mentions">Mentions</a>
+</nav>
 
 <!-- HERO (image normale) -->
 <section class="hero-banner reveal">
@@ -27,8 +39,14 @@
 
   <section id="tarifs" class="reveal">
     <h2>Tarifs & offre Premium</h2>
-    <div style="margin-top:16px"><img class="responsive lightboxable" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium"></div>
-    <div style="margin-top:16px"><img class="responsive lightboxable" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium"></div>
+    <div class="carousel" id="tarifsCarousel" style="margin-top:16px">
+      <img class="responsive active" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium">
+      <img class="responsive" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium">
+      <div class="controls">
+        <button data-dir="-1" aria-label="Précédent">‹</button>
+        <button data-dir="1" aria-label="Suivant">›</button>
+      </div>
+    </div>
   </section>
 
   <section id="communaute" class="reveal">
@@ -105,6 +123,6 @@
 <!-- Back to top -->
 <button id="backToTop" aria-label="Retour en haut">↑</button>
 
-<script src="script.js?v=interactive1"></script>
+<script src="script.js?v=interactive2"></script>
 </body>
 </html>
