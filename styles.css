@@ -8,20 +8,27 @@ a{text-decoration:none;color:inherit}
 section{padding:40px 0}
 h2{font-size:30px;margin:0 0 14px}
 small.muted{color:var(--muted)}
-.card{background:var(---card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 footer{padding:24px 0;color:var(--muted)}
 img.responsive{width:100%;height:auto;border-radius:12px;box-shadow:var(--shadow)}
 .container.narrow{max-width:960px}
 @media (max-width:900px){.grid-2{grid-template-columns:1fr}section{padding:28px 0}}
 
-/* Reveal on scroll */
+/* Reveal on show */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
 .reveal.show{opacity:1;transform:translateY(0)}
 
-/* Back to top button */
-#backToTop{position:fixed;right:18px;bottom:18px;display:none;border:none;border-radius:999px;padding:12px 14px;background:linear-gradient(180deg,var(--brand-2),#34caba);color:#fff;font-weight:700;box-shadow:var(--shadow);cursor:pointer;z-index:60}
-#backToTop.show{display:block}
+/* Tab bar under hero */
+.tabbar{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,var(--bg-start),var(--bg-end));border-bottom:1px solid rgba(0,0,0,.06);padding:10px 0;backdrop-filter:saturate(120%) blur(6px)}
+.tabbar .inner{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.tabbar button{border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);background:#fff}
+.tabbar button.active{background:linear-gradient(180deg,var(--brand-2),#34caba);color:#fff}
+
+/* Section switching */
+.app-section{display:none}
+.app-section.active{display:block}
+.app-section .section-inner{padding-top:10px}
 
 /* Lightbox */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:70}
@@ -30,23 +37,6 @@ img.responsive{width:100%;height:auto;border-radius:12px;box-shadow:var(--shadow
 .lightbox .caption{color:#fff;margin-top:10px;text-align:center;max-width:90vw}
 .lightbox .close{position:absolute;top:16px;right:16px;font-size:24px;color:#fff;background:transparent;border:none;cursor:pointer}
 
-/* Floating Menu (FAB) */
-#menuFab{position:fixed;left:18px;bottom:18px;border:none;border-radius:999px;padding:12px 14px;background:linear-gradient(180deg,var(--brand),#ff996f);color:#fff;font-weight:800;box-shadow:var(--shadow);cursor:pointer;z-index:60}
-
-/* Drawer */
-.drawer{position:fixed;top:0;left:0;height:100vh;width:280px;background:#fff;box-shadow:20px 0 50px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .3s ease;z-index:80;padding:20px}
-.drawer.open{transform:translateX(0)}
-.drawer h3{margin:6px 0 14px}
-.drawer a{display:block;padding:10px 8px;border-radius:10px;margin-bottom:8px;font-weight:600}
-.drawer a:hover{background:#f3f3f3}
-
-/* Overlay */
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:75}
-#overlay.show{opacity:1;pointer-events:auto}
-
-/* Carousel */
-.carousel{position:relative;overflow:hidden;border-radius:12px;box-shadow:var(--shadow)}
-.carousel img{position:absolute;inset:0;width:100%;height:auto;opacity:0;transition:opacity .6s ease}
-.carousel img.active{position:relative;opacity:1}
-.carousel .controls{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px}
-.carousel button{background:rgba(0,0,0,.35);border:none;color:#fff;border-radius:10px;padding:6px 10px;cursor:pointer}
+/* Back to top */
+#backToTop{position:fixed;right:18px;bottom:18px;display:none;border:none;border-radius:999px;padding:12px 14px;background:linear-gradient(180deg,var(--brand-2),#34caba);color:#fff;font-weight:700;box-shadow:var(--shadow);cursor:pointer;z-index:60}
+#backToTop.show{display:block}
