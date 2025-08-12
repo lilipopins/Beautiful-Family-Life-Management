@@ -1,6 +1,7 @@
 {
   "name": "Beautiful Family Life",
-  "short_name": "FamilyLife",
+  "short_name": "Family Life",
+  "description": "Application familiale : agenda partagé, tâches, repas, bien‑être, budget et communauté.",
   "lang": "fr-FR",
   "start_url": "/Beautiful-Family-Life-Management/",
   "scope": "/Beautiful-Family-Life-Management/",
