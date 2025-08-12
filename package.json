@@ -1,0 +1,27 @@
+{
+  "name": "bfl-capacitor-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Capacitor app wrapper for Beautiful Family Life (remote URL).",
+  "scripts": {
+    "postinstall": "cap sync",
+    "cap": "cap",
+    "cap:add:android": "cap add android",
+    "cap:add:ios": "cap add ios",
+    "cap:sync": "cap sync",
+    "cap:open:android": "cap open android",
+    "cap:open:ios": "cap open ios",
+    "assets": "capacitor-assets generate"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.7.0",
+    "@capacitor/app": "^5.0.6",
+    "@capacitor/core": "^5.7.0",
+    "@capacitor/ios": "^5.7.0",
+    "@capacitor/status-bar": "^5.0.6",
+    "@capacitor/splash-screen": "^5.0.6"
+  }
+}
