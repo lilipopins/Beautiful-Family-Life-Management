@@ -1,1 +1,69 @@
-<!doctype html><meta charset='utf-8'><title>Beautiful Family Life</title>Chargement...
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beautiful Family Life — Restauration rapide</title>
+  <meta name="description" content="Site restauré rapidement sans service worker pour éviter tout cache bloqué.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=restore1">
+  <script>
+    // Désenregistre tout Service Worker existant pour repartir propre
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+    }
+  </script>
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0}</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container narrow">
+      <img class="responsive" src="page-d-accueil.png" alt="Affiche d’accueil" loading="eager">
+    </div>
+  </header>
+
+  <main class="container narrow">
+    <section id="tarifs">
+      <h2>Tarifs & offre Premium</h2>
+      <div class="pad">
+        <img class="responsive" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium" loading="lazy">
+      </div>
+      <div class="pad">
+        <img class="responsive" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium" loading="lazy">
+      </div>
+    </section>
+
+    <section id="modules">
+      <h2>Modules & fonctionnalités</h2>
+      <div class="pad">
+        <img class="responsive" src="modules-et-fonctionnalites.png" alt="Modules et fonctionnalités" loading="lazy">
+      </div>
+    </section>
+
+    <section id="communaute">
+      <h2>Communauté & ressources</h2>
+      <div class="pad">
+        <img class="responsive" src="communaute-et-ressources.png" alt="Communauté & ressources" loading="lazy">
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact & support</h2>
+      <div class="pad">
+        <img class="responsive" src="contact-et-support.png" alt="Contact & support" loading="lazy">
+      </div>
+    </section>
+
+    <section id="mentions">
+      <h2>Mentions légales • CGU • Confidentialité</h2>
+      <p class="muted">Version de secours — contenu détaillé à réintégrer plus tard.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© 2025 Beautiful Family Life — Restauration simplifiée.</small>
+    </div>
+  </footer>
+</body>
+</html>
