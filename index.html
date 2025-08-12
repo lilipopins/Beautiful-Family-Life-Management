@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Beautiful Family Life — Version mobile corrigée</title>
-  <meta name="description" content="Version mobile sans doublon, avec nettoyage automatique du cache au premier chargement.">
+  <meta name="description" content="Version mobile avec le bon visuel de tarifs conservé, et nettoyage automatique du cache au premier chargement.">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=mobilefix1">
+  <link rel="stylesheet" href="styles.css?v=mobilefix2">
   <script>
     // Auto-reset du cache/service worker au PREMIER chargement uniquement
     (async () => {
@@ -21,7 +21,6 @@
             for (const k of keys) { await caches.delete(k); }
           }
           localStorage.setItem('bflCacheResetOnce', '1');
-          // petite attente puis rechargement propre
           setTimeout(() => location.reload(), 300);
         }
       } catch (e) {}
@@ -39,8 +38,9 @@
   <main class="container narrow">
     <section id="tarifs">
       <h2>Tarifs & offre Premium</h2>
+      <!-- On GARDE uniquement le visuel détaillé des tarifs -->
       <div class="pad">
-        <img class="responsive" src="infographie-gratuit-vs-premium.png" alt="Comparatif Gratuit vs Premium" loading="lazy">
+        <img class="responsive" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium" loading="lazy">
       </div>
     </section>
 
