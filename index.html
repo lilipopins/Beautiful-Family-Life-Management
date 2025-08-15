@@ -3,78 +3,113 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Beautiful Family Life — Version mobile corrigée</title>
-  <meta name="description" content="Version mobile avec le bon visuel de tarifs conservé, et nettoyage automatique du cache au premier chargement.">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=mobilefix2">
-  <script>
-    // Auto-reset du cache/service worker au PREMIER chargement uniquement
-    (async () => {
-      try {
-        if (!localStorage.getItem('bflCacheResetOnce')) {
-          if ('serviceWorker' in navigator) {
-            const regs = await navigator.serviceWorker.getRegistrations();
-            for (const r of regs) { await r.unregister(); }
-          }
-          if ('caches' in window) {
-            const keys = await caches.keys();
-            for (const k of keys) { await caches.delete(k); }
-          }
-          localStorage.setItem('bflCacheResetOnce', '1');
-          setTimeout(() => location.reload(), 300);
-        }
-      } catch (e) {}
-    })();
-  </script>
-  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0}</style>
+  <title>Beautiful Family Life — Organisation familiale sans stress</title>
+  <meta name="description" content="Beautiful Family Life : modules d’organisation familiale, bien‑être, repas, budget, communauté & synchronisation multi‑appareils.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
 </head>
 <body>
-  <header class="hero">
-    <div class="container narrow">
-      <img class="responsive" src="page-d-accueil.png" alt="Affiche d’accueil" loading="eager">
+<header class="site-header">
+  <nav class="container nav-wrap">
+    <a href="#accueil" class="brand">🌼 Beautiful Family Life</a>
+    <ul class="nav">
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#communaute">Communauté</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#mentions">Mentions</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- ACCUEIL / HERO -->
+  <section id="accueil" class="section hero" aria-label="Accueil">
+    <picture>
+      <source srcset="assets/page-d-accueil.webp" type="image/webp">
+      <img class="hero-img" src="assets/page-d-accueil.png" alt="Présentation Beautiful Family Life">
+    </picture>
+  </section>
+
+  <!-- MODULES -->
+  <section id="modules" class="section" aria-label="Modules et fonctionnalités">
+    <picture>
+      <source srcset="assets/modules-et-fonctionnalites.webp" type="image/webp">
+      <img class="full-img" src="assets/modules-et-fonctionnalites.png" alt="Modules et fonctionnalités">
+    </picture>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" class="section" aria-label="Tarifs et offre Premium">
+    <picture>
+      <source srcset="assets/tarifs-et-offres-premium.webp" type="image/webp">
+      <img class="full-img" src="assets/tarifs-et-offres-premium.png" alt="Tarifs & offre Premium">
+    </picture>
+  </section>
+
+  <!-- COMMUNAUTE -->
+  <section id="communaute" class="section" aria-label="Communauté et Ressources">
+    <picture>
+      <source srcset="assets/communaute-et-ressources.webp" type="image/webp">
+      <img class="full-img" src="assets/communaute-et-ressources.png" alt="Communauté et Ressources">
+    </picture>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" aria-label="Contact & Support">
+    <picture>
+      <source srcset="assets/contact-et-support.webp" type="image/webp">
+      <img class="full-img" src="assets/contact-et-support.png" alt="Contact & Support">
+    </picture>
+  </section>
+
+  <!-- MENTIONS -->
+  <section id="mentions" class="section legal" aria-label="Mentions légales, CGU et Confidentialité">
+    <div class="container legal-inner">
+      <h2>Mentions légales · CGU · Confidentialité</h2>
+      <p><strong>Éditeur :</strong> Beautiful Family Life</p>
+      <p><strong>Contact :</strong> support@beautifulfamily.life</p>
+      <p>
+        En utilisant ce site, vous acceptez nos <a href="#mentions">Conditions Générales d’Utilisation</a> et notre
+        <a href="#mentions">Politique de Confidentialité</a>. Vous pouvez remplacer ce texte par vos contenus officiels
+        ou des liens vers des PDF hébergés dans le dépôt.
+      </p>
     </div>
-  </header>
+  </section>
+</main>
 
-  <main class="container narrow">
-    <section id="tarifs">
-      <h2>Tarifs & offre Premium</h2>
-      <!-- On GARDE uniquement le visuel détaillé des tarifs -->
-      <div class="pad">
-        <img class="responsive" src="tarifs-et-ofrre-premium.png" alt="Détails de l’offre Premium" loading="lazy">
-      </div>
-    </section>
+<footer class="footer">
+  © 2025 Beautiful Family Life — Tous droits réservés
+</footer>
 
-    <section id="modules">
-      <h2>Modules & fonctionnalités</h2>
-      <div class="pad">
-        <img class="responsive" src="modules-et-fonctionnalites.png" alt="Modules et fonctionnalités" loading="lazy">
-      </div>
-    </section>
+<script>
+  // Défilement fluide compensé du header
+  const header = document.querySelector('.site-header');
+  const headerH = () => header.getBoundingClientRect().height;
+  document.querySelectorAll('.nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.startsWith('#')) {
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          const y = el.getBoundingClientRect().top + window.scrollY - (headerH() + 8);
+          window.scrollTo({ top: y, behavior:'smooth' });
+        }
+      }
+    });
+  });
 
-    <section id="communaute">
-      <h2>Communauté & ressources</h2>
-      <div class="pad">
-        <img class="responsive" src="communaute-et-ressources.png" alt="Communauté & ressources" loading="lazy">
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>Contact & support</h2>
-      <div class="pad">
-        <img class="responsive" src="contact-et-support.png" alt="Contact & support" loading="lazy">
-      </div>
-    </section>
-
-    <section id="mentions">
-      <h2>Mentions légales • CGU • Confidentialité</h2>
-      <p class="muted">Version mobile corrigée — doublon supprimé.</p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <small>© 2025 Beautiful Family Life — Version mobile corrigée.</small>
-    </div>
-  </footer>
+  // Surlignage du lien actif
+  const links = [...document.querySelectorAll('.nav a')];
+  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      const idx = sections.indexOf(en.target);
+      if (idx >= 0) links[idx].classList.toggle('active', en.isIntersecting);
+    });
+  }, { rootMargin: '-80px 0px -70% 0px', threshold: 0.01 });
+  sections.forEach(s => io.observe(s));
+</script>
 </body>
 </html>
