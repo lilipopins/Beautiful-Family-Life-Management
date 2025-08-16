@@ -7,6 +7,16 @@
   <meta name="description" content="Beautiful Family Life aide les familles à s'organiser simplement : agenda partagé, listes, repas, bien-être et communauté. Offre gratuite + Premium.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Mini styles pour les boutons superposés sur les images */
+    .img-cta{position:relative;display:block}
+    .img-cta > img{display:block;width:100%;height:auto;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.06)}
+    .cta-overlay{position:absolute;inset:auto 12px 12px auto;display:flex;gap:8px;flex-wrap:wrap}
+    .cta-overlay .btn{appearance:none;border:0;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;background:#509384;color:#fff;text-decoration:none}
+    .cta-overlay .btn.alt{background:#fff;color:#183b36;border:1px solid #d7e6df}
+    .cta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .chip{appearance:none;border:1px solid #d7e6df;border-radius:999px;padding:8px 12px;background:#fff;color:#183b36;text-decoration:none;font-weight:700}
+  </style>
 </head>
 <body>
 
@@ -37,23 +47,55 @@
 
   <!-- ACCUEIL -->
   <section id="accueil" class="section hero" aria-label="Accueil">
-    <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
+    <a class="img-cta" href="#modules">
+      <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
+      <div class="cta-overlay">
+        <a class="btn" href="#modules">Découvrir l’app</a>
+        <a class="btn alt" href="#tarifs">Voir les tarifs</a>
+      </div>
+    </a>
   </section>
 
-  <!-- TARIFS & OFFRE PREMIUM (remplace l’ancienne infographie) -->
+  <!-- TARIFS & OFFRE PREMIUM -->
   <section id="tarifs" class="section" aria-label="Tarifs et Offre Premium">
     <div class="container">
       <h2>Tarifs & Offre Premium</h2>
-      <img class="full-img" src="tarifs-et-offres-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
+      <a class="img-cta" href="#tarifs">
+        <img class="full-img" src="tarifs-et-offres-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
+        <div class="cta-overlay">
+          <a class="btn" href="#tarifs">Plus d’infos</a>
+          <a class="btn alt" href="#modules">Voir les modules</a>
+        </div>
+      </a>
     </div>
   </section>
 
-  <!-- MODULES (onglets + panneaux, compatible script.js) -->
+  <!-- MODULES (image conservée + accès direct aux onglets) -->
   <section id="modules" class="section" aria-label="Modules et Fonctionnalités">
     <div class="container">
       <h2>Modules & fonctionnalités</h2>
 
-      <div class="tabs" role="tablist" aria-label="Sous-modules">
+      <!-- Image conservée -->
+      <a class="img-cta" href="#modules">
+        <img src="modules-et-fonctionnalites.png" alt="Modules et fonctionnalités" loading="lazy">
+        <div class="cta-overlay">
+          <a class="btn" href="#modules?tab=organisation">Découvrir</a>
+          <a class="btn alt" href="#tarifs">Passer Premium</a>
+        </div>
+      </a>
+
+      <!-- Raccourcis vers chaque onglet -->
+      <div class="cta-row" aria-label="Accès rapide aux sous-modules">
+        <a class="chip" href="#modules?tab=organisation">Organisation</a>
+        <a class="chip" href="#modules?tab=bien-etre">Bien-être</a>
+        <a class="chip" href="#modules?tab=repas">Repas</a>
+        <a class="chip" href="#modules?tab=documents">Documents</a>
+        <a class="chip" href="#modules?tab=communaute">Communauté</a>
+        <a class="chip" href="#modules?tab=sync">Sync</a>
+      </div>
+
+      <!-- Panneaux (script.js gère l'affichage si tu as la version complète) -->
+      <div class="tabs" role="tablist" aria-label="Sous-modules" style="margin-top:16px;">
         <button class="tab" data-tab="organisation" role="tab" aria-selected="true">Organisation</button>
         <button class="tab" data-tab="bien-etre" role="tab">Bien-être</button>
         <button class="tab" data-tab="repas" role="tab">Repas</button>
@@ -62,156 +104,47 @@
         <button class="tab" data-tab="sync" role="tab">Sync</button>
       </div>
 
-      <!-- Organisation -->
       <div class="tab-panel" data-panel="organisation" role="tabpanel">
-        <div class="module-header">
-          <p>Agenda partagé, tâches assignées, rappels.</p>
-        </div>
-
-        <div class="toolbar">
-          <button id="btnAddTask" class="btn btn-primary">+ Ajouter</button>
-          <select id="filterAssigned"><option value="">Tous</option></select>
-          <select id="filterStatus">
-            <option value="">Statut</option>
-            <option value="todo">À faire</option>
-            <option value="doing">En cours</option>
-            <option value="done">Terminé</option>
-          </select>
-          <button id="btnShareCalendar" class="btn btn-premium" data-premium>Partager calendrier 🔒</button>
-          <button id="btnNotify" class="btn btn-premium" data-premium>Activer rappels 🔒</button>
-        </div>
-
-        <ul id="taskList" class="card-list"></ul>
-
-        <dialog id="taskDialog">
-          <form method="dialog" id="taskForm" class="form-grid">
-            <h3 id="taskDialogTitle">Nouvelle tâche</h3>
-            <label>Titre
-              <input name="title" required>
-            </label>
-            <label>Assignée à
-              <input name="assignedTo" placeholder="Papa / Maman / Enfant…">
-            </label>
-            <label>Échéance
-              <input type="datetime-local" name="due">
-            </label>
-
-            <!-- Répétition : Premium -->
-            <label class="is-prem" title="Répétition disponible en Premium">
-              Répétition
-              <select name="repeat" data-premium>
-                <option value="none" selected>—</option>
-                <option value="daily">Quotidien 🔒</option>
-                <option value="weekly">Hebdo 🔒</option>
-                <option value="monthly">Mensuel 🔒</option>
-              </select>
-              <span class="lock">🔒</span>
-            </label>
-
-            <label>Priorité
-              <select name="priority">
-                <option value="low">Basse</option>
-                <option value="med" selected>Moyenne</option>
-                <option value="high">Haute</option>
-              </select>
-            </label>
-            <label>Notes
-              <textarea name="notes" rows="3"></textarea>
-            </label>
-            <menu class="dialog-actions">
-              <button value="cancel" class="btn">Annuler</button>
-              <button id="taskSaveBtn" value="save" class="btn btn-primary">Enregistrer</button>
-            </menu>
-          </form>
-        </dialog>
+        <p>Agenda partagé, tâches assignées, rappels.</p>
       </div>
-
-      <!-- Bien-être -->
       <div class="tab-panel" data-panel="bien-etre" role="tabpanel" hidden>
-        <div class="module-header"><p>Check-in émotionnel, exercices guidés, journal de gratitude.</p></div>
-        <div class="toolbar">
-          <button id="btnAddMood" class="btn btn-primary">+ Saisir un état</button>
-          <button class="btn btn-premium" data-premium>Voir historique & graphiques 🔒</button>
-        </div>
-        <ul id="moodList" class="card-list empty">
-          <li class="empty-state">Aucun enregistrement pour le moment.</li>
-        </ul>
+        <p>Check-in émotionnel, exercices guidés, journal de gratitude.</p>
       </div>
-
-      <!-- Repas (structure compatible script.js si tu utilises la version avec repas complet) -->
       <div class="tab-panel" data-panel="repas" role="tabpanel" hidden>
-        <div class="module-header"><p>Menus hebdo et liste de courses.</p></div>
-        <div class="toolbar">
-          <button id="btnWeekNew" class="btn">+ Nouvelle semaine</button>
-          <button id="btnWeekAuto" class="btn btn-premium" data-premium>Générer menus automatiques 🔒</button>
-          <select id="weekSelect" title="Semaine"></select>
-          <button id="btnWeekClear" class="btn">Vider</button>
-          <button id="btnExportMeals" class="btn">Exporter</button>
-        </div>
-        <div class="grid-2">
-          <div class="card">
-            <h4>Menus de la semaine</h4>
-            <div id="weekPlan" class="meal-grid"></div>
-            <datalist id="mealSuggestions">
-              <option>Pâtes bolo</option><option>Poulet rôti</option><option>Poisson au four</option>
-              <option>Omelette</option><option>Salade composée</option><option>Soupe maison</option>
-              <option>Tacos maison</option><option>Riz sauté</option><option>Gratin de légumes</option>
-              <option>Pizzas maison</option>
-            </datalist>
-          </div>
-          <div class="card">
-            <h4>Liste de courses</h4>
-            <div class="toolbar">
-              <input id="itemName" class="input" placeholder="Ajouter un ingrédient…">
-              <input id="itemQty" class="input" placeholder="Qté" style="width:80px">
-              <button id="btnAddItem" class="btn btn-primary">Ajouter</button>
-              <button id="btnExportList" class="btn">Exporter</button>
-              <button id="btnClearBought" class="btn">Nettoyer (achetés)</button>
-            </div>
-            <ul id="shoppingList" class="shopping"></ul>
-          </div>
-        </div>
+        <p>Menus hebdo et liste de courses.</p>
       </div>
-
-      <!-- Documents -->
       <div class="tab-panel" data-panel="documents" role="tabpanel" hidden>
-        <div class="module-header"><p>Espace sécurisé : fichiers & justificatifs.</p></div>
-        <div class="toolbar">
-          <button id="btnAddDoc" class="btn">+ Ajouter (limite 3 en Offert)</button>
-        </div>
-        <ul id="docList" class="card-list"></ul>
+        <p>Espace sécurisé : fichiers & justificatifs.</p>
       </div>
-
-      <!-- Communauté -->
       <div class="tab-panel" data-panel="communaute" role="tabpanel" hidden>
-        <div class="module-header"><p>Forum bienveillant, accompagnement.</p></div>
-        <div class="toolbar">
-          <button class="btn btn-premium" data-premium>Nouveau post 🔒</button>
-        </div>
-        <ul class="card-list empty">
-          <li class="empty-state">Connectez-vous pour publier (à venir).</li>
-        </ul>
+        <p>Forum bienveillant, accompagnement.</p>
       </div>
-
-      <!-- Sync -->
       <div class="tab-panel" data-panel="sync" role="tabpanel" hidden>
-        <div class="module-header"><p>Synchronisation multi-appareils (demo).</p></div>
-        <div class="card">
-          <div>Partage familial (5 membres) 🔒</div>
-          <div><button class="btn btn-premium" data-premium>Activer 🔒</button></div>
-        </div>
+        <p>Synchronisation multi-appareils (démo).</p>
       </div>
     </div>
   </section>
 
-  <!-- COMMUNAUTÉ (image) -->
+  <!-- COMMUNAUTÉ -->
   <section id="communaute" class="section" aria-label="Communauté et Ressources">
-    <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
+    <a class="img-cta" href="#modules?tab=communaute">
+      <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
+      <div class="cta-overlay">
+        <a class="btn" href="#modules?tab=communaute">Découvrir</a>
+        <a class="btn alt" href="#tarifs">Voir Premium</a>
+      </div>
+    </a>
   </section>
 
   <!-- CONTACT -->
   <section id="contact" class="section" aria-label="Contact et Support">
-    <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
+    <a class="img-cta" href="#contact">
+      <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
+      <div class="cta-overlay">
+        <a class="btn" href="#contact">Nous contacter</a>
+        <a class="btn alt" href="#communaute">Accéder à la communauté</a>
+      </div>
+    </a>
   </section>
 
   <!-- MENTIONS -->
@@ -229,18 +162,21 @@
   © 2025 Beautiful Family Life — Tous droits réservés
 </footer>
 
-<!-- Dialog upsell Premium -->
-<dialog id="premiumDialog">
-  <form method="dialog" class="upsell">
-    <h3>Fonction Premium</h3>
-    <p>Cette fonctionnalité est disponible avec l’abonnement Premium.</p>
-    <menu>
-      <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
-      <button value="cancel" class="btn">Fermer</button>
-    </menu>
-  </form>
-</dialog>
-
 <script src="script.js"></script>
+<script>
+  // Optionnel : quand on clique un lien de type #modules?tab=xxx, on force l’onglet après le scroll.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#modules?tab="]');
+    if (!a) return;
+    const [, query] = a.getAttribute('href').split('?');
+    const params = new URLSearchParams(query);
+    const tab = params.get('tab') || 'organisation';
+    // Laisse le scroll se faire puis déclenche l’onglet
+    requestAnimationFrame(() => {
+      const btn = document.querySelector('.tabs .tab[data-tab="'+tab+'"]');
+      if (btn) btn.click();
+    });
+  });
+</script>
 </body>
 </html>
