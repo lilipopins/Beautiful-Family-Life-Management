@@ -3,10 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Beautiful Family Life — Maquette (Offert vs Premium)</title>
-  <meta name="description" content="Maquette interactive : modules BFL avec séparation Offert vs Premium. Repas complet : menus + liste de courses.">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Beautiful Family Life — Application Web</title>
+  <meta name="description" content="Beautiful Family Life : web app d’organisation familiale — modules, tarifs, communauté, contact. Installable et utilisable hors ligne.">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#509384">
+  <style>
+    main .section { display:none }
+    main .section.active { display:block }
+    .fade-enter { opacity:0; transform:translateY(8px) }
+    .fade-enter.fade-enter-active { opacity:1; transform:none; transition:opacity .25s ease, transform .25s ease }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .fade-enter{opacity:1;transform:none}
+    }
+    .full-img,.hero-img{width:100%;height:auto;display:block}
+    .section{padding:36px 0}
+
+    /* Install banner */
+    .install-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:2000;background:#fff;border:1px solid #e6efe9;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);display:none;align-items:center;gap:12px;padding:12px}
+    .install-banner.show{display:flex}
+    .install-banner .icon{width:44px;height:44px;border-radius:10px;flex:0 0 44px;background:linear-gradient(135deg,#CEE6D8,#FA8A71)}
+    .install-banner .txt{flex:1 1 auto;color:#183b36;font-size:.95rem;line-height:1.25}
+    .install-banner .actions{display:flex;gap:8px}
+    .btn{appearance:none;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .btn-primary{background:#509384;color:#fff}
+    .btn-ghost{background:#f2f6f4;color:#183b36}
+  </style>
 </head>
 <body>
 <header class="site-header">
@@ -20,20 +45,20 @@
       <li><a href="#infographie">Infographie</a></li>
       <li><a href="#mentions">Mentions</a></li>
     </ul>
-
-    <!-- Sélecteur de plan pour la démo -->
-    <div class="plan-switch" title="Changer de plan (démo)">
-      <label for="planSelect">Mode :</label>
-      <select id="planSelect">
-        <option value="free">Offert</option>
-        <option value="premium">Premium</option>
-      </select>
-    </div>
   </nav>
 </header>
 
+<!-- Install banner -->
+<div class="install-banner" id="installBanner" role="dialog" aria-live="polite" aria-label="Installer l’application">
+  <div class="icon" aria-hidden="true"></div>
+  <div class="txt"><strong>Installer l’app&nbsp;?</strong><br>Ajoutez BFL sur votre écran d’accueil.</div>
+  <div class="actions">
+    <button class="btn btn-ghost" id="btnLater">Plus tard</button>
+    <button class="btn btn-primary" id="btnInstall">Installer</button>
+  </div>
+</div>
+
 <main>
-  <!-- ACCUEIL -->
   <section id="accueil" class="section hero" aria-label="Accueil">
     <picture>
       <source srcset="page-d-accueil.webp" type="image/webp">
@@ -41,7 +66,6 @@
     </picture>
   </section>
 
-  <!-- TARIFS -->
   <section id="tarifs" class="section" aria-label="Tarifs et Offre Premium">
     <picture>
       <source srcset="tarifs-et-offres-premium.webp" type="image/webp">
@@ -49,167 +73,13 @@
     </picture>
   </section>
 
-  <!-- MODULES (avec sous-onglets + gating) -->
   <section id="modules" class="section" aria-label="Modules et Fonctionnalités">
-    <div class="container">
-      <h2>Modules & fonctionnalités</h2>
-
-      <div class="tabs" role="tablist" aria-label="Sous-modules">
-        <button class="tab" data-tab="organisation" role="tab" aria-selected="true">Organisation</button>
-        <button class="tab" data-tab="bien-etre" role="tab">Bien‑être</button>
-        <button class="tab" data-tab="repas" role="tab">Repas</button>
-        <button class="tab" data-tab="documents" role="tab">Documents</button>
-        <button class="tab" data-tab="communaute" role="tab">Communauté</button>
-        <button class="tab" data-tab="sync" role="tab">Sync</button>
-      </div>
-
-      <!-- Organisation (implémenté + gating) -->
-      <div class="tab-panel" data-panel="organisation" role="tabpanel">
-        <div class="module-header">
-          <p>Agenda partagé, tâches assignées, rappels.</p>
-        </div>
-
-        <div class="toolbar">
-          <button id="btnAddTask" class="btn btn-primary">+ Ajouter</button>
-
-          <select id="filterAssigned"><option value="">Tous</option></select>
-          <select id="filterStatus">
-            <option value="">Statut</option>
-            <option value="todo">À faire</option>
-            <option value="doing">En cours</option>
-            <option value="done">Terminé</option>
-          </select>
-
-          <button id="btnShareCalendar" class="btn btn-premium" data-premium>Partager calendrier 🔒</button>
-          <button id="btnNotify" class="btn btn-premium" data-premium>Activer rappels 🔒</button>
-        </div>
-
-        <ul id="taskList" class="card-list"></ul>
-
-        <dialog id="taskDialog">
-          <form method="dialog" id="taskForm" class="form-grid">
-            <h3 id="taskDialogTitle">Nouvelle tâche</h3>
-            <label> Titre
-              <input name="title" required>
-            </label>
-            <label> Assignée à
-              <input name="assignedTo" placeholder="Papa / Maman / Enfant…">
-            </label>
-            <label> Échéance
-              <input type="datetime-local" name="due">
-            </label>
-
-            <!-- Répétition : Premium -->
-            <label class="is-prem" title="Répétition disponible en Premium">
-              Répétition
-              <select name="repeat" data-premium>
-                <option value="none" selected>—</option>
-                <option value="daily">Quotidien 🔒</option>
-                <option value="weekly">Hebdo 🔒</option>
-                <option value="monthly">Mensuel 🔒</option>
-              </select>
-              <span class="lock">🔒</span>
-            </label>
-
-            <label> Priorité
-              <select name="priority">
-                <option value="low">Basse</option>
-                <option value="med" selected>Moyenne</option>
-                <option value="high">Haute</option>
-              </select>
-            </label>
-            <label> Notes
-              <textarea name="notes" rows="3"></textarea>
-            </label>
-            <menu class="dialog-actions">
-              <button value="cancel" class="btn">Annuler</button>
-              <button id="taskSaveBtn" value="save" class="btn btn-primary">Enregistrer</button>
-            </menu>
-          </form>
-        </dialog>
-      </div>
-
-      <!-- Bien-être -->
-      <div class="tab-panel" data-panel="bien-etre" role="tabpanel" hidden>
-        <div class="module-header"><p>Check‑in émotionnel, exercices guidés, journal de gratitude.</p></div>
-        <div class="toolbar">
-          <button id="btnAddMood" class="btn btn-primary">+ Saisir un état</button>
-          <button class="btn btn-premium" data-premium>Voir historique & graphiques 🔒</button>
-        </div>
-        <ul id="moodList" class="card-list empty">
-          <li class="empty-state">Aucun enregistrement pour le moment.</li>
-        </ul>
-      </div>
-
-      <!-- Repas (COMPLET) -->
-      <div class="tab-panel" data-panel="repas" role="tabpanel" hidden>
-        <div class="module-header"><p>Menus hebdo et liste de courses.</p></div>
-
-        <div class="toolbar">
-          <button id="btnWeekNew" class="btn">+ Nouvelle semaine</button>
-          <button id="btnWeekAuto" class="btn btn-premium" data-premium>Générer menus automatiques 🔒</button>
-          <select id="weekSelect" title="Semaine"></select>
-          <button id="btnWeekClear" class="btn">Vider</button>
-          <button id="btnExportMeals" class="btn">Exporter</button>
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <h4>Menus de la semaine</h4>
-            <div id="weekPlan" class="meal-grid"></div>
-            <datalist id="mealSuggestions">
-              <option>Pâtes bolo</option><option>Poulet rôti</option><option>Poisson au four</option>
-              <option>Omelette</option><option>Salade composée</option><option>Soupe maison</option>
-              <option>Tacos maison</option><option>Riz sauté</option><option>Gratin de légumes</option>
-              <option>Pizzas maison</option>
-            </datalist>
-          </div>
-          <div class="card">
-            <h4>Liste de courses</h4>
-            <div class="toolbar">
-              <input id="itemName" class="input" placeholder="Ajouter un ingrédient…">
-              <input id="itemQty" class="input" placeholder="Qté" style="width:80px">
-              <button id="btnAddItem" class="btn btn-primary">Ajouter</button>
-              <button id="btnExportList" class="btn">Exporter</button>
-              <button id="btnClearBought" class="btn">Nettoyer (achetés)</button>
-            </div>
-            <ul id="shoppingList" class="shopping"></ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Documents -->
-      <div class="tab-panel" data-panel="documents" role="tabpanel" hidden>
-        <div class="module-header"><p>Espace sécurisé : fichiers & justificatifs.</p></div>
-        <div class="toolbar">
-          <button id="btnAddDoc" class="btn">+ Ajouter (limite 3 en Offert)</button>
-        </div>
-        <ul id="docList" class="card-list"></ul>
-      </div>
-
-      <!-- Communauté -->
-      <div class="tab-panel" data-panel="communaute" role="tabpanel" hidden>
-        <div class="module-header"><p>Forum bienveillant, accompagnement.</p></div>
-        <div class="toolbar">
-          <button class="btn btn-premium" data-premium>Nouveau post 🔒</button>
-        </div>
-        <ul class="card-list empty">
-          <li class="empty-state">Connectez‑vous pour publier (à venir).</li>
-        </ul>
-      </div>
-
-      <!-- Sync -->
-      <div class="tab-panel" data-panel="sync" role="tabpanel" hidden>
-        <div class="module-header"><p>Synchronisation multi‑appareils (demo).</p></div>
-        <div class="card">
-          <div>Partage familial (5 membres) 🔒</div>
-          <div><button class="btn btn-premium" data-premium>Activer 🔒</button></div>
-        </div>
-      </div>
-    </div>
+    <picture>
+      <source srcset="modules-et-fonctionnalites.webp" type="image/webp">
+      <img class="full-img" src="modules-et-fonctionnalites.png" alt="Modules et Fonctionnalités" loading="lazy">
+    </picture>
   </section>
 
-  <!-- COMMUNAUTÉ (image existante) -->
   <section id="communaute" class="section" aria-label="Communauté et Ressources">
     <picture>
       <source srcset="communauté-et-ressources.webp" type="image/webp">
@@ -217,7 +87,6 @@
     </picture>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="section" aria-label="Contact et Support">
     <picture>
       <source srcset="contact-et-support.webp" type="image/webp">
@@ -225,7 +94,6 @@
     </picture>
   </section>
 
-  <!-- INFOGRAPHIE -->
   <section id="infographie" class="section" aria-label="Infographie gratuit vs Premium">
     <picture>
       <source srcset="infographie-gratuit-vs-premium.webp" type="image/webp">
@@ -233,7 +101,6 @@
     </picture>
   </section>
 
-  <!-- MENTIONS -->
   <section id="mentions" class="section legal" aria-label="Mentions légales, CGU et Confidentialité">
     <div class="container legal-inner">
       <h2>Mentions légales · CGU · Confidentialité</h2>
@@ -248,18 +115,64 @@
   © 2025 Beautiful Family Life — Tous droits réservés
 </footer>
 
-<!-- Dialog upsell Premium -->
-<dialog id="premiumDialog">
-  <form method="dialog" class="upsell">
-    <h3>Fonction Premium</h3>
-    <p>Cette fonctionnalité est disponible avec l’abonnement Premium.</p>
-    <menu>
-      <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
-      <button value="cancel" class="btn">Fermer</button>
-    </menu>
-  </form>
-</dialog>
+<script>
+  // Mode "onglets" : une section à la fois
+  const links  = [...document.querySelectorAll('.nav a')];
+  const secs   = [...document.querySelectorAll('main .section')];
 
-<script src="script.js"></script>
+  function setActiveLink(hash) { links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash)); }
+  function showSection(hash, withAnim = true) {
+    if (!hash || !document.querySelector(hash)) hash = '#accueil';
+    secs.forEach(s => {
+      const isTarget = ('#' + s.id) === hash;
+      if (isTarget) {
+        s.classList.add('active');
+        if (withAnim) {
+          s.classList.add('fade-enter'); void s.offsetWidth;
+          s.classList.add('fade-enter-active');
+          setTimeout(() => s.classList.remove('fade-enter','fade-enter-active'), 260);
+        }
+      } else { s.classList.remove('active'); }
+    });
+    setActiveLink(hash);
+    history.replaceState(null, '', hash);
+  }
+  links.forEach(a => a.addEventListener('click', e => { const hash = a.getAttribute('href'); if (hash && hash.startsWith('#')) { e.preventDefault(); showSection(hash); } }));
+  window.addEventListener('hashchange', () => showSection(location.hash));
+  showSection(location.hash, false);
+
+  // Enregistrer le service worker
+  if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js')); }
+
+  // ---- Bannière d'installation (beforeinstallprompt) ----
+  let deferredPrompt = null;
+  const banner = document.getElementById('installBanner');
+  const btnInstall = document.getElementById('btnInstall');
+  const btnLater = document.getElementById('btnLater');
+  const STORAGE_KEY = 'bfl_install_nudge_until';
+
+  function shouldNudge() {
+    try { const t = localStorage.getItem(STORAGE_KEY); if (!t) return true; return Date.now() > Number(t); }
+    catch(e) { return true; }
+  }
+  function snooze(days=7) { try { localStorage.setItem(STORAGE_KEY, String(Date.now()+days*24*60*60*1000)); }catch(e){} }
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (shouldNudge()) { banner.classList.add('show'); }
+  });
+
+  btnInstall.addEventListener('click', async () => {
+    banner.classList.remove('show');
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    if (outcome !== 'accepted') snooze(7);
+  });
+
+  btnLater.addEventListener('click', () => { banner.classList.remove('show'); snooze(7); });
+</script>
 </body>
 </html>
