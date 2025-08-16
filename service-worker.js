@@ -1,5 +1,5 @@
 /* Simple offline-first service worker for BFL */
-const CACHE_NAME = 'bfl-pwa-v1';
+const CACHE_NAME = 'bfl-pwa-v3';
 const ASSETS = [
   './',
   './index.html',

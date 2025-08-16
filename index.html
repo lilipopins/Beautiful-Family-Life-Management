@@ -21,6 +21,16 @@
     }
     .full-img,.hero-img{width:100%;height:auto;display:block}
     .section{padding:36px 0}
+
+    /* Install banner */
+    .install-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:2000;background:#fff;border:1px solid #e6efe9;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);display:none;align-items:center;gap:12px;padding:12px}
+    .install-banner.show{display:flex}
+    .install-banner .icon{width:44px;height:44px;border-radius:10px;flex:0 0 44px;background:linear-gradient(135deg,#CEE6D8,#FA8A71)}
+    .install-banner .txt{flex:1 1 auto;color:#183b36;font-size:.95rem;line-height:1.25}
+    .install-banner .actions{display:flex;gap:8px}
+    .btn{appearance:none;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .btn-primary{background:#509384;color:#fff}
+    .btn-ghost{background:#f2f6f4;color:#183b36}
   </style>
 </head>
 <body>
@@ -37,6 +47,16 @@
     </ul>
   </nav>
 </header>
+
+<!-- Install banner -->
+<div class="install-banner" id="installBanner" role="dialog" aria-live="polite" aria-label="Installer l’application">
+  <div class="icon" aria-hidden="true"></div>
+  <div class="txt"><strong>Installer l’app&nbsp;?</strong><br>Ajoutez BFL sur votre écran d’accueil.</div>
+  <div class="actions">
+    <button class="btn btn-ghost" id="btnLater">Plus tard</button>
+    <button class="btn btn-primary" id="btnInstall">Installer</button>
+  </div>
+</div>
 
 <main>
   <section id="accueil" class="section hero" aria-label="Accueil">
@@ -96,11 +116,11 @@
 </footer>
 
 <script>
+  // Mode "onglets" : une section à la fois
   const links  = [...document.querySelectorAll('.nav a')];
   const secs   = [...document.querySelectorAll('main .section')];
 
   function setActiveLink(hash) { links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash)); }
-
   function showSection(hash, withAnim = true) {
     if (!hash || !document.querySelector(hash)) hash = '#accueil';
     secs.forEach(s => {
@@ -112,21 +132,47 @@
           s.classList.add('fade-enter-active');
           setTimeout(() => s.classList.remove('fade-enter','fade-enter-active'), 260);
         }
-      } else {
-        s.classList.remove('active');
-      }
+      } else { s.classList.remove('active'); }
     });
     setActiveLink(hash);
     history.replaceState(null, '', hash);
-    const h = document.querySelector(hash + ' h1, ' + hash + ' h2');
-    if (h) h.setAttribute('tabindex','-1'), h.focus({preventScroll:true});
   }
-
   links.forEach(a => a.addEventListener('click', e => { const hash = a.getAttribute('href'); if (hash && hash.startsWith('#')) { e.preventDefault(); showSection(hash); } }));
   window.addEventListener('hashchange', () => showSection(location.hash));
   showSection(location.hash, false);
 
+  // Enregistrer le service worker
   if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js')); }
+
+  // ---- Bannière d'installation (beforeinstallprompt) ----
+  let deferredPrompt = null;
+  const banner = document.getElementById('installBanner');
+  const btnInstall = document.getElementById('btnInstall');
+  const btnLater = document.getElementById('btnLater');
+  const STORAGE_KEY = 'bfl_install_nudge_until';
+
+  function shouldNudge() {
+    try { const t = localStorage.getItem(STORAGE_KEY); if (!t) return true; return Date.now() > Number(t); }
+    catch(e) { return true; }
+  }
+  function snooze(days=7) { try { localStorage.setItem(STORAGE_KEY, String(Date.now()+days*24*60*60*1000)); }catch(e){} }
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (shouldNudge()) { banner.classList.add('show'); }
+  });
+
+  btnInstall.addEventListener('click', async () => {
+    banner.classList.remove('show');
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    if (outcome !== 'accepted') snooze(7);
+  });
+
+  btnLater.addEventListener('click', () => { banner.classList.remove('show'); snooze(7); });
 </script>
 </body>
 </html>
