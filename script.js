@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Menu burger
+  // Menu burger (mobile)
   const btn = document.querySelector('.nav-toggle');
   const menu = document.querySelector('#menu');
   if(btn && menu){
@@ -9,11 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
-  // Fallback pour l'image Tarifs si le nom alternatif est présent
-  const tarifsImg = document.querySelector('img[alt="Tarifs & Offre Premium"]');
-  if(tarifsImg && tarifsImg.dataset.fallback){
-    tarifsImg.addEventListener('error', () => {
-      tarifsImg.src = tarifsImg.dataset.fallback;
-    }, { once: true });
-  }
+
+  // Fallback d'images : essaie les différentes variantes de noms jusqu'à trouver un fichier valide
+  document.querySelectorAll('img.img-fallback').forEach(img => {
+    const variants = JSON.parse(img.getAttribute('data-srcs') || '[]');
+    let idx = 0;
+    const tryNext = () => {
+      if (idx >= variants.length) return;
+      const candidate = variants[idx++];
+      if (img.src.endsWith(candidate)) { tryNext(); return; }
+      const test = new Image();
+      test.onload = () => { img.src = candidate; };
+      test.onerror = tryNext;
+      test.src = candidate;
+    };
+    img.addEventListener('error', tryNext, { once: true });
+    // au cas où la première source échoue immédiatement
+    setTimeout(() => {
+      if (!img.complete || img.naturalWidth === 0) tryNext();
+    }, 50);
+  });
 });

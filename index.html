@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Beautiful Family Life — Organisation familiale sans stress</title>
   <meta name="description" content="Beautiful Family Life aide les familles à s'organiser simplement : agenda partagé, listes, repas, bien-être et communauté. Offre gratuite + Premium." />
-  <link rel="preload" as="image" href="page-d-accueil.webp">
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
@@ -31,10 +30,10 @@
   <section id="accueil" class="section hero">
     <div class="wrap hero-grid">
       <div class="hero-media">
-        <picture>
-          <source type="image/webp" srcset="page-d-accueil.webp">
-          <img src="page-d-accueil.png" alt="Beautiful Family Life – Présentation" loading="eager">
-        </picture>
+        <img class="img-card img-fallback"
+             alt="Beautiful Family Life – Présentation"
+             src="page-d-accueil.webp"
+             data-srcs='["page-d-accueil.webp","page-d-accueil.png","Page d\'accueil.png"]'>
       </div>
     </div>
   </section>
@@ -43,11 +42,10 @@
   <section id="tarifs" class="section">
     <div class="wrap">
       <h2>Tarifs & Offre Premium</h2>
-      <picture>
-        <source type="image/webp" srcset="tarifs-et-offres-premium.webp">
-        <!-- On tente d'abord le nom standard, puis l'autre variante fournie -->
-        <img src="tarifs-et-offres-premium.png" data-fallback="Tarifs et Ofrre Premium.png" alt="Tarifs & Offre Premium" class="img-card">
-      </picture>
+      <img class="img-card img-fallback"
+           alt="Tarifs & Offre Premium"
+           src="tarifs-et-offres-premium.webp"
+           data-srcs='["tarifs-et-offres-premium.webp","tarifs-et-offres-premium.png","Tarifs et Ofrre Premium.png","Tarifs et Offre Premium.png"]'>
     </div>
   </section>
 
@@ -55,10 +53,10 @@
   <section id="modules" class="section alt">
     <div class="wrap">
       <h2>Modules & Fonctionnalités</h2>
-      <picture>
-        <source type="image/webp" srcset="modules-et-fonctionnalites.webp">
-        <img src="modules-et-fonctionnalites.png" alt="Modules et fonctionnalités" class="img-card">
-      </picture>
+      <img class="img-card img-fallback"
+           alt="Modules et fonctionnalités"
+           src="modules-et-fonctionnalites.webp"
+           data-srcs='["modules-et-fonctionnalites.webp","modules-et-fonctionnalites.png","Modules et Fonctionnalités.png"]'>
     </div>
   </section>
 
@@ -66,10 +64,10 @@
   <section id="communaute" class="section">
     <div class="wrap">
       <h2>Communauté & Ressources</h2>
-      <picture>
-        <source type="image/webp" srcset="communauté-et-ressources.webp">
-        <img src="communauté-et-ressources.png" alt="Communauté et ressources" class="img-card">
-      </picture>
+      <img class="img-card img-fallback"
+           alt="Communauté et ressources"
+           src="communauté-et-ressources.webp"
+           data-srcs='["communauté-et-ressources.webp","communauté-et-ressources.png","Communauté et Ressources.png","Communauté et Ressources.png"]'>
     </div>
   </section>
 
@@ -77,10 +75,10 @@
   <section id="contact" class="section alt">
     <div class="wrap">
       <h2>Contact & Support</h2>
-      <picture>
-        <source type="image/webp" srcset="contact-et-support.webp">
-        <img src="contact-et-support.png" alt="Contact et support" class="img-card">
-      </picture>
+      <img class="img-card img-fallback"
+           alt="Contact et support"
+           src="contact-et-support.webp"
+           data-srcs='["contact-et-support.webp","contact-et-support.png","Contact et Support.png"]'>
     </div>
   </section>
 

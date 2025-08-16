@@ -1,18 +1,16 @@
 
-Mise à jour Beautiful Family Life — One-Page propre
----------------------------------------------------
-• Ajout de l'onglet "Accueil" dans la navigation.
-• Suppression de la section "Infographie gratuit vs Premium".
-• Remplacement par "Tarifs & Offre Premium" (image).
-• Sections : Accueil / Tarifs / Modules / Communauté / Contact.
-• Images appelées par défaut aux noms déjà présents dans ton dépôt.
-  - page-d-accueil.webp (fallback: page-d-accueil.png)
-  - tarifs-et-offres-premium.webp (fallback: tarifs-et-offres-premium.png ; fallback 2: "Tarifs et Ofrre Premium.png")
-  - modules-et-fonctionnalites.webp (fallback: modules-et-fonctionnalites.png)
-  - communauté-et-ressources.webp (fallback: communauté-et-ressources.png)
-  - contact-et-support.webp (fallback: contact-et-support.png)
+Pack léger — Beautiful Family Life (sans images)
+------------------------------------------------
+Ce pack contient uniquement le code (HTML/CSS/JS). Les images doivent déjà être présentes dans le dépôt.
 
-Intégration :
-1) Uploade index.html, styles.css, script.js à la racine du dépôt.
-2) Vérifie que les images existent avec ces noms (ou renomme-les pour correspondre).
-3) Force le rafraîchissement du cache (Cmd/Ctrl+Shift+R).
+Images recherchées (dans cet ordre de fallback) :
+- Accueil : page-d-accueil.webp → page-d-accueil.png → Page d'accueil.png
+- Tarifs : tarifs-et-offres-premium.webp → tarifs-et-offres-premium.png → Tarifs et Ofrre Premium.png → Tarifs et Offre Premium.png
+- Modules : modules-et-fonctionnalites.webp → modules-et-fonctionnalites.png → Modules et Fonctionnalités.png
+- Communauté : communauté-et-ressources.webp → communauté-et-ressources.png → Communauté et Ressources.png → Communauté et Ressources.png
+- Contact : contact-et-support.webp → contact-et-support.png → Contact et Support.png
+
+Installation :
+1) Uploadez ces 3 fichiers à la racine du dépôt : index.html, styles.css, script.js
+2) Assurez-vous que les images existent sous au moins l'un des noms listés ci-dessus.
+3) Forcez l'actualisation du site : Ctrl/Cmd + Shift + R
