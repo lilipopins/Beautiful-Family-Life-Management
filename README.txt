@@ -1,13 +1,27 @@
-# Beautiful Family Life — One‑page (photos réalistes)
+# Beautiful Family Life — One‑page
 
-Ce pack est prêt pour GitHub Pages et utilise des **photos libres (Unsplash Source)** via des URLs externes.
-Vous pouvez remplacer ces URLs par vos propres images locales dans `/assets/` si vous préférez.
+Ce pack contient un site **one‑page** prêt pour GitHub Pages.
+
+## Fichiers
+- `index.html` — page unique avec sections : Accueil, Modules, Tarifs, Communauté, Contact, Mentions
+- `styles.css` — styles (palette vert/saumon)
+- *(images non incluses)* — placez vos images dans un dossier `assets/` à la racine du dépôt
+
+## Chemins d’images attendus
+- `assets/page-d-accueil.webp` (ou `.png` en fallback)
+- `assets/modules-et-fonctionnalites.webp` (ou `.png`)
+- `assets/tarifs-et-offres-premium.webp` (ou `.png`)
+- `assets/communaute-et-ressources.webp` (ou `.png`)
+- `assets/contact-et-support.webp` (ou `.png`)
+
+> 🔎 Si vos fichiers portent des **accents** (ex. `communauté-et-ressources.png`), renommez-les **sans accents**
+et mettez-les dans `assets/`. Sinon, adaptez les `src` dans `index.html`.
 
 ## Déploiement
 1. Uploadez `index.html` et `styles.css` à la racine du dépôt.
-2. (Optionnel) Ajoutez vos images perso dans `assets/` et remplacez les `src` par vos chemins.
-3. Activez GitHub Pages si besoin (branche `main`, dossier `/root`).
+2. Créez le dossier `assets/` et uploadez-y vos images.
+3. Activez GitHub Pages (branche `main` → `/root`).
 
-## Remarques
-- Les images sont chargées depuis `https://source.unsplash.com/...` avec des requêtes (family, planning, etc.).
-- Vous pouvez fixer une image précise plus tard en mettant un lien direct d’une photo Unsplash ou une image locale.
+## Astuces
+- Les liens du menu **scrollent** vers chaque section et l’onglet actif se surligne.
+- Optimisez en `.webp` si possible (gardez le `.png` en fallback).
