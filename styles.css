@@ -54,12 +54,3 @@ dialog::backdrop{ background:rgba(0,0,0,.3) }
 .is-prem{ position:relative }
 .is-prem .lock{ position:absolute; right:10px; top:0; font-size:.95rem; opacity:.9 }
 [data-premium][disabled]{ opacity:.7; cursor:not-allowed }
-
-/* Repas specific */
-.meal-grid{ display:grid; grid-template-columns: 100px 1fr 1fr 1fr; align-items:center; gap:8px; }
-.meal-grid .day{ font-weight:700; color:#2c4; }
-.meal-grid input{ width:100%; padding:.45rem .6rem; border:1px solid #dbe7e1; border-radius:10px; }
-.meal-grid .hint{ font-size:.82rem; color:#678; grid-column: 2 / -1; margin:-4px 0 8px; }
-.shopping{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
-.shopping li{ display:grid; grid-template-columns: 24px 1fr auto; align-items:center; gap:8px; border:1px solid #e8efe9; border-radius:10px; padding:8px }
-.shopping .done{ opacity:.6; text-decoration: line-through }
