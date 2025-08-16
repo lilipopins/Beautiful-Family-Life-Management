@@ -1,181 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Beautiful Family Life — Organisation familiale sans stress</title>
-  <meta name="description" content="Beautiful Family Life aide les familles à s'organiser simplement : agenda partagé, listes, repas, bien-être et communauté. Offre gratuite + Premium.">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Family Life</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Mini styles pour les boutons superposés sur les images */
-    .img-cta{position:relative;display:block}
-    .img-cta > img{display:block;width:100%;height:auto;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.06)}
-    .cta-overlay{position:absolute;inset:auto 12px 12px auto;display:flex;gap:8px;flex-wrap:wrap}
-    .cta-overlay .btn{appearance:none;border:0;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;background:#509384;color:#fff;text-decoration:none}
-    .cta-overlay .btn.alt{background:#fff;color:#183b36;border:1px solid #d7e6df}
-    .cta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .chip{appearance:none;border:1px solid #d7e6df;border-radius:999px;padding:8px 12px;background:#fff;color:#183b36;text-decoration:none;font-weight:700}
-  </style>
 </head>
 <body>
+  <header>
+    <h1>Beautiful Family Life</h1>
+    <nav>
+      <a href="#accueil">Accueil</a>
+      <a href="#tarifs">Tarifs et Offres Premium</a>
+      <a href="#modules">Modules et Fonctionnalités</a>
+      <a href="#communaute">Communauté et Ressources</a>
+      <a href="#contact">Contact et Support</a>
+    </nav>
+  </header>
 
-<header class="site-header">
-  <nav class="container nav-wrap">
-    <a href="#accueil" class="brand">🌼 Beautiful Family Life</a>
-    <ul class="nav" role="navigation" aria-label="Navigation principale">
-      <li><a href="#accueil">Accueil</a></li>
-      <li><a href="#tarifs">Tarifs</a></li>
-      <li><a href="#modules">Modules</a></li>
-      <li><a href="#communaute">Communauté</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#mentions">Mentions</a></li>
-    </ul>
-
-    <!-- Sélecteur de plan (démo UI : Offert/Premium) -->
-    <div class="plan-switch" title="Changer de plan (démo)">
-      <label for="planSelect">Mode :</label>
-      <select id="planSelect">
-        <option value="free">Offert</option>
-        <option value="premium">Premium</option>
-      </select>
-    </div>
-  </nav>
-</header>
-
-<main>
-
-  <!-- ACCUEIL -->
-  <section id="accueil" class="section hero" aria-label="Accueil">
-    <a class="img-cta" href="#modules">
-      <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
-      <div class="cta-overlay">
-        <a class="btn" href="#modules">Découvrir l’app</a>
-        <a class="btn alt" href="#tarifs">Voir les tarifs</a>
-      </div>
-    </a>
+  <section id="accueil">
+    <h2>Accueil</h2>
+    <img src="page-d-accueil.png" alt="Page d'accueil">
+    <button class="btn-info">Plus d'infos</button>
   </section>
 
-  <!-- TARIFS & OFFRE PREMIUM -->
-  <section id="tarifs" class="section" aria-label="Tarifs et Offre Premium">
-    <div class="container">
-      <h2>Tarifs & Offre Premium</h2>
-      <a class="img-cta" href="#tarifs">
-        <img class="full-img" src="tarifs-et-ofrre-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
-        <div class="cta-overlay">
-          <a class="btn" href="#tarifs">Plus d’infos</a>
-          <a class="btn alt" href="#modules">Voir les modules</a>
-        </div>
-      </a>
-    </div>
+  <section id="tarifs">
+    <h2>Tarifs et Offres Premium</h2>
+    <img src="tarifs-et-ofrre-premium.png" alt="Tarifs et Offres Premium">
+    <button class="btn-info">Plus d'infos</button>
   </section>
 
-  <!-- MODULES (image conservée + accès direct aux onglets) -->
-  <section id="modules" class="section" aria-label="Modules et Fonctionnalités">
-    <div class="container">
-      <h2>Modules & fonctionnalités</h2>
-
-      <!-- Image conservée -->
-      <a class="img-cta" href="#modules">
-        <img src="modules-et-fonctionnalites.png" alt="Modules et fonctionnalités" loading="lazy">
-        <div class="cta-overlay">
-          <a class="btn" href="#modules?tab=organisation">Découvrir</a>
-          <a class="btn alt" href="#tarifs">Passer Premium</a>
-        </div>
-      </a>
-
-      <!-- Raccourcis vers chaque onglet -->
-      <div class="cta-row" aria-label="Accès rapide aux sous-modules">
-        <a class="chip" href="#modules?tab=organisation">Organisation</a>
-        <a class="chip" href="#modules?tab=bien-etre">Bien-être</a>
-        <a class="chip" href="#modules?tab=repas">Repas</a>
-        <a class="chip" href="#modules?tab=documents">Documents</a>
-        <a class="chip" href="#modules?tab=communaute">Communauté</a>
-        <a class="chip" href="#modules?tab=sync">Sync</a>
-      </div>
-
-      <!-- Panneaux (ton script.js gère l'affichage si tu utilises la version complète) -->
-      <div class="tabs" role="tablist" aria-label="Sous-modules" style="margin-top:16px;">
-        <button class="tab" data-tab="organisation" role="tab" aria-selected="true">Organisation</button>
-        <button class="tab" data-tab="bien-etre" role="tab">Bien-être</button>
-        <button class="tab" data-tab="repas" role="tab">Repas</button>
-        <button class="tab" data-tab="documents" role="tab">Documents</button>
-        <button class="tab" data-tab="communaute" role="tab">Communauté</button>
-        <button class="tab" data-tab="sync" role="tab">Sync</button>
-      </div>
-
-      <div class="tab-panel" data-panel="organisation" role="tabpanel">
-        <p>Agenda partagé, tâches assignées, rappels.</p>
-      </div>
-      <div class="tab-panel" data-panel="bien-etre" role="tabpanel" hidden>
-        <p>Check-in émotionnel, exercices guidés, journal de gratitude.</p>
-      </div>
-      <div class="tab-panel" data-panel="repas" role="tabpanel" hidden>
-        <p>Menus hebdo et liste de courses.</p>
-      </div>
-      <div class="tab-panel" data-panel="documents" role="tabpanel" hidden>
-        <p>Espace sécurisé : fichiers & justificatifs.</p>
-      </div>
-      <div class="tab-panel" data-panel="communaute" role="tabpanel" hidden>
-        <p>Forum bienveillant, accompagnement.</p>
-      </div>
-      <div class="tab-panel" data-panel="sync" role="tabpanel" hidden>
-        <p>Synchronisation multi-appareils (démo).</p>
-      </div>
-    </div>
+  <section id="modules">
+    <h2>Modules et Fonctionnalités</h2>
+    <img src="modules-et-fonctionnalites.png" alt="Modules et Fonctionnalités">
+    <button class="btn-info">Plus d'infos</button>
   </section>
 
-  <!-- COMMUNAUTÉ -->
-  <section id="communaute" class="section" aria-label="Communauté et Ressources">
-    <a class="img-cta" href="#modules?tab=communaute">
-      <img class="full-img" src="communaute-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
-      <div class="cta-overlay">
-        <a class="btn" href="#modules?tab=communaute">Découvrir</a>
-        <a class="btn alt" href="#tarifs">Voir Premium</a>
-      </div>
-    </a>
+  <section id="communaute">
+    <h2>Communauté et Ressources</h2>
+    <img src="communaute-et-ressources.png" alt="Communauté et Ressources">
+    <button class="btn-info">Plus d'infos</button>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section" aria-label="Contact et Support">
-    <a class="img-cta" href="#contact">
-      <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
-      <div class="cta-overlay">
-        <a class="btn" href="#contact">Nous contacter</a>
-        <a class="btn alt" href="#communaute">Accéder à la communauté</a>
-      </div>
-    </a>
+  <section id="contact">
+    <h2>Contact et Support</h2>
+    <img src="contact-et-support.png" alt="Contact et Support">
+    <button class="btn-info">Plus d'infos</button>
   </section>
 
-  <!-- MENTIONS -->
-  <section id="mentions" class="section legal" aria-label="Mentions légales, CGU et Confidentialité">
-    <div class="container legal-inner">
-      <h2>Mentions légales · CGU · Confidentialité</h2>
-      <p><strong>Éditeur :</strong> Beautiful Family Life</p>
-      <p><strong>Contact :</strong> support@beautifulfamily.life</p>
-      <p>En utilisant ce site, vous acceptez nos Conditions Générales d’Utilisation et notre Politique de Confidentialité.</p>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  © 2025 Beautiful Family Life — Tous droits réservés
-</footer>
-
-<script src="script.js"></script>
-<script>
-  // Active le bon onglet quand on clique un lien #modules?tab=xxx
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#modules?tab="]');
-    if (!a) return;
-    const [, query] = a.getAttribute('href').split('?');
-    const params = new URLSearchParams(query);
-    const tab = params.get('tab') || 'organisation';
-    requestAnimationFrame(() => {
-      const btn = document.querySelector('.tabs .tab[data-tab="'+tab+'"]');
-      if (btn) btn.click();
-    });
-  });
-</script>
+  <footer>
+    <p>© 2025 Beautiful Family Life</p>
+  </footer>
 </body>
 </html>
