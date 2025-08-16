@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Beautiful Family Life — Maquette (Offert vs Premium)</title>
-  <meta name="description" content="Maquette interactive : modules BFL avec séparation Offert vs Premium.">
+  <meta name="description" content="Maquette interactive : modules BFL avec séparation Offert vs Premium. Repas complet : menus + liste de courses.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -141,21 +141,39 @@
         </ul>
       </div>
 
-      <!-- Repas -->
+      <!-- Repas (COMPLET) -->
       <div class="tab-panel" data-panel="repas" role="tabpanel" hidden>
         <div class="module-header"><p>Menus hebdo et liste de courses.</p></div>
+
         <div class="toolbar">
-          <button id="btnWeekGen" class="btn btn-premium" data-premium>Générer menus automatiques 🔒</button>
-          <select id="weekSelect"><option>Semaine actuelle</option></select>
+          <button id="btnWeekNew" class="btn">+ Nouvelle semaine</button>
+          <button id="btnWeekAuto" class="btn btn-premium" data-premium>Générer menus automatiques 🔒</button>
+          <select id="weekSelect" title="Semaine"></select>
+          <button id="btnWeekClear" class="btn">Vider</button>
+          <button id="btnExportMeals" class="btn">Exporter</button>
         </div>
+
         <div class="grid-2">
           <div class="card">
-            <h4>Menus</h4>
-            <div id="weekPlan">Lu —<br>Ma —<br>Me —<br>Je —<br>Ve —<br>Sa —<br>Di —</div>
+            <h4>Menus de la semaine</h4>
+            <div id="weekPlan" class="meal-grid"></div>
+            <datalist id="mealSuggestions">
+              <option>Pâtes bolo</option><option>Poulet rôti</option><option>Poisson au four</option>
+              <option>Omelette</option><option>Salade composée</option><option>Soupe maison</option>
+              <option>Tacos maison</option><option>Riz sauté</option><option>Gratin de légumes</option>
+              <option>Pizzas maison</option>
+            </datalist>
           </div>
           <div class="card">
             <h4>Liste de courses</h4>
-            <ul id="shoppingList" class="simple-list"></ul>
+            <div class="toolbar">
+              <input id="itemName" class="input" placeholder="Ajouter un ingrédient…">
+              <input id="itemQty" class="input" placeholder="Qté" style="width:80px">
+              <button id="btnAddItem" class="btn btn-primary">Ajouter</button>
+              <button id="btnExportList" class="btn">Exporter</button>
+              <button id="btnClearBought" class="btn">Nettoyer (achetés)</button>
+            </div>
+            <ul id="shoppingList" class="shopping"></ul>
           </div>
         </div>
       </div>
