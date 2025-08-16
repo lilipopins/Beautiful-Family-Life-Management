@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256">
-  <rect width="100%" height="100%" fill="#ffe8e1"/>
-  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="170">🌼</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#CEE6D8"/><stop offset="1" stop-color="#FA8A71"/></linearGradient></defs>
+      <rect width="64" height="64" rx="12" fill="url(#g)"/>
+      <path d="M12 34 L32 18 L52 34 L52 52 L12 52 Z" fill="#fff"/>
+    </svg>

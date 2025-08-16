@@ -3,20 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Beautiful Family Life — Organisation familiale sans stress</title>
-  <meta name="description" content="Beautiful Family Life : présentation, tarifs, modules, communauté, contact et infographie — tout sur une page.">
+  <title>Beautiful Family Life — Application Web</title>
+  <meta name="description" content="Beautiful Family Life : web app d’organisation familiale — modules, tarifs, communauté, contact. Installable et utilisable hors ligne.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#509384">
   <style>
-    /* Complément d'animations accessible (le reste est dans styles.css) */
-    html{scroll-behavior:smooth}
-    .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
-    .reveal.visible{opacity:1; transform:none}
+    main .section { display:none }
+    main .section.active { display:block }
+    .fade-enter { opacity:0; transform:translateY(8px) }
+    .fade-enter.fade-enter-active { opacity:1; transform:none; transition:opacity .25s ease, transform .25s ease }
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      .reveal{opacity:1; transform:none}
+      .fade-enter{opacity:1;transform:none}
     }
-    /* Images responsives */
     .full-img,.hero-img{width:100%;height:auto;display:block}
     .section{padding:36px 0}
   </style>
@@ -37,56 +39,49 @@
 </header>
 
 <main>
-  <!-- ACCUEIL -->
-  <section id="accueil" class="section hero reveal" aria-label="Accueil">
+  <section id="accueil" class="section hero" aria-label="Accueil">
     <picture>
       <source srcset="page-d-accueil.webp" type="image/webp">
       <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
     </picture>
   </section>
 
-  <!-- TARIFS -->
-  <section id="tarifs" class="section reveal" aria-label="Tarifs et Offre Premium">
+  <section id="tarifs" class="section" aria-label="Tarifs et Offre Premium">
     <picture>
       <source srcset="tarifs-et-offres-premium.webp" type="image/webp">
       <img class="full-img" src="tarifs-et-offres-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
     </picture>
   </section>
 
-  <!-- MODULES -->
-  <section id="modules" class="section reveal" aria-label="Modules et Fonctionnalités">
+  <section id="modules" class="section" aria-label="Modules et Fonctionnalités">
     <picture>
       <source srcset="modules-et-fonctionnalites.webp" type="image/webp">
       <img class="full-img" src="modules-et-fonctionnalites.png" alt="Modules et Fonctionnalités" loading="lazy">
     </picture>
   </section>
 
-  <!-- COMMUNAUTÉ -->
-  <section id="communaute" class="section reveal" aria-label="Communauté et Ressources">
+  <section id="communaute" class="section" aria-label="Communauté et Ressources">
     <picture>
       <source srcset="communauté-et-ressources.webp" type="image/webp">
       <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
     </picture>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section reveal" aria-label="Contact et Support">
+  <section id="contact" class="section" aria-label="Contact et Support">
     <picture>
       <source srcset="contact-et-support.webp" type="image/webp">
       <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
     </picture>
   </section>
 
-  <!-- INFOGRAPHIE (NOUVELLE SECTION) -->
-  <section id="infographie" class="section reveal" aria-label="Infographie gratuit vs Premium">
+  <section id="infographie" class="section" aria-label="Infographie gratuit vs Premium">
     <picture>
       <source srcset="infographie-gratuit-vs-premium.webp" type="image/webp">
       <img class="full-img" src="infographie-gratuit-vs-premium.png" alt="Infographie gratuit vs Premium" loading="lazy">
     </picture>
   </section>
 
-  <!-- MENTIONS -->
-  <section id="mentions" class="section legal reveal" aria-label="Mentions légales, CGU et Confidentialité">
+  <section id="mentions" class="section legal" aria-label="Mentions légales, CGU et Confidentialité">
     <div class="container legal-inner">
       <h2>Mentions légales · CGU · Confidentialité</h2>
       <p><strong>Éditeur :</strong> Beautiful Family Life</p>
@@ -101,45 +96,37 @@
 </footer>
 
 <script>
-  // Scroll fluide compensé par la hauteur du header
-  const header = document.querySelector('.site-header');
-  const headerH = () => header?.getBoundingClientRect().height || 0;
-  document.querySelectorAll('.nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      const id = a.getAttribute('href');
-      if (id && id.startsWith('#')) {
-        const el = document.querySelector(id);
-        if (el) {
-          e.preventDefault();
-          const y = el.getBoundingClientRect().top + window.scrollY - (headerH() + 8);
-          window.scrollTo({ top: y, behavior: 'smooth' });
+  const links  = [...document.querySelectorAll('.nav a')];
+  const secs   = [...document.querySelectorAll('main .section')];
+
+  function setActiveLink(hash) { links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash)); }
+
+  function showSection(hash, withAnim = true) {
+    if (!hash || !document.querySelector(hash)) hash = '#accueil';
+    secs.forEach(s => {
+      const isTarget = ('#' + s.id) === hash;
+      if (isTarget) {
+        s.classList.add('active');
+        if (withAnim) {
+          s.classList.add('fade-enter'); void s.offsetWidth;
+          s.classList.add('fade-enter-active');
+          setTimeout(() => s.classList.remove('fade-enter','fade-enter-active'), 260);
         }
+      } else {
+        s.classList.remove('active');
       }
     });
-  });
+    setActiveLink(hash);
+    history.replaceState(null, '', hash);
+    const h = document.querySelector(hash + ' h1, ' + hash + ' h2');
+    if (h) h.setAttribute('tabindex','-1'), h.focus({preventScroll:true});
+  }
 
-  // Lien actif selon la section visible
-  const links = [...document.querySelectorAll('.nav a')];
-  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  const activeIO = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      const idx = sections.indexOf(en.target);
-      if (idx >= 0) links[idx].classList.toggle('active', en.isIntersecting);
-    });
-  }, { rootMargin: '-80px 0px -70% 0px', threshold: 0.01 });
-  sections.forEach(s => activeIO.observe(s));
+  links.forEach(a => a.addEventListener('click', e => { const hash = a.getAttribute('href'); if (hash && hash.startsWith('#')) { e.preventDefault(); showSection(hash); } }));
+  window.addEventListener('hashchange', () => showSection(location.hash));
+  showSection(location.hash, false);
 
-  // Apparition douce (reveal on scroll)
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealIO = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (en.isIntersecting) {
-        en.target.classList.add('visible');
-        revealIO.unobserve(en.target);
-      }
-    });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-  revealEls.forEach(el => revealIO.observe(el));
+  if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js')); }
 </script>
 </body>
 </html>
