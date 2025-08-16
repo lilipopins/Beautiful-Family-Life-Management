@@ -1,14 +1,13 @@
-# One‑page (images locales existantes)
+# Beautiful Family Life — One‑page (photos réalistes)
 
-Ce `index.html` pointe vers VOS images avec noms FR et accents :
-- assets/Page d'accueil.png
-- assets/Tarifs et Offre Premium.png
-- assets/Modules et Fonctionnalités.png
-- assets/Communauté et Ressources.png
-- assets/Contact et Support.png
-- assets/Infographie gratuit vs Premium.png
+Ce pack est prêt pour GitHub Pages et utilise des **photos libres (Unsplash Source)** via des URLs externes.
+Vous pouvez remplacer ces URLs par vos propres images locales dans `/assets/` si vous préférez.
 
-## Installation
-1) Mettez `index.html` et `styles.css` à la **racine** du dépôt.
-2) Assurez-vous que le dossier **assets/** existe à la racine avec **exactement** ces fichiers (même casse, accents, espaces).
-3) Faites un commit/push, puis rechargez la page en **forçant le cache** (Cmd/Ctrl + Shift + R).
+## Déploiement
+1. Uploadez `index.html` et `styles.css` à la racine du dépôt.
+2. (Optionnel) Ajoutez vos images perso dans `assets/` et remplacez les `src` par vos chemins.
+3. Activez GitHub Pages si besoin (branche `main`, dossier `/root`).
+
+## Remarques
+- Les images sont chargées depuis `https://source.unsplash.com/...` avec des requêtes (family, planning, etc.).
+- Vous pouvez fixer une image précise plus tard en mettant un lien direct d’une photo Unsplash ou une image locale.
