@@ -61,7 +61,7 @@
     <div class="container">
       <h2>Tarifs & Offre Premium</h2>
       <a class="img-cta" href="#tarifs">
-        <img class="full-img" src="tarifs-et-offres-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
+        <img class="full-img" src="tarifs-et-ofrre-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
         <div class="cta-overlay">
           <a class="btn" href="#tarifs">Plus d’infos</a>
           <a class="btn alt" href="#modules">Voir les modules</a>
@@ -94,7 +94,7 @@
         <a class="chip" href="#modules?tab=sync">Sync</a>
       </div>
 
-      <!-- Panneaux (script.js gère l'affichage si tu as la version complète) -->
+      <!-- Panneaux (ton script.js gère l'affichage si tu utilises la version complète) -->
       <div class="tabs" role="tablist" aria-label="Sous-modules" style="margin-top:16px;">
         <button class="tab" data-tab="organisation" role="tab" aria-selected="true">Organisation</button>
         <button class="tab" data-tab="bien-etre" role="tab">Bien-être</button>
@@ -128,7 +128,7 @@
   <!-- COMMUNAUTÉ -->
   <section id="communaute" class="section" aria-label="Communauté et Ressources">
     <a class="img-cta" href="#modules?tab=communaute">
-      <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
+      <img class="full-img" src="communaute-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
       <div class="cta-overlay">
         <a class="btn" href="#modules?tab=communaute">Découvrir</a>
         <a class="btn alt" href="#tarifs">Voir Premium</a>
@@ -164,14 +164,13 @@
 
 <script src="script.js"></script>
 <script>
-  // Optionnel : quand on clique un lien de type #modules?tab=xxx, on force l’onglet après le scroll.
+  // Active le bon onglet quand on clique un lien #modules?tab=xxx
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#modules?tab="]');
     if (!a) return;
     const [, query] = a.getAttribute('href').split('?');
     const params = new URLSearchParams(query);
     const tab = params.get('tab') || 'organisation';
-    // Laisse le scroll se faire puis déclenche l’onglet
     requestAnimationFrame(() => {
       const btn = document.querySelector('.tabs .tab[data-tab="'+tab+'"]');
       if (btn) btn.click();
