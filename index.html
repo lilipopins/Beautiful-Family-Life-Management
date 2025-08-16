@@ -3,25 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Beautiful Family Life — Maquette (Offert vs Premium)</title>
-  <meta name="description" content="Maquette interactive : modules BFL avec séparation Offert vs Premium.">
+  <title>Beautiful Family Life — Organisation familiale sans stress</title>
+  <meta name="description" content="Beautiful Family Life aide les familles à s'organiser simplement : agenda partagé, listes, repas, bien-être et communauté. Offre gratuite + Premium.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
 <header class="site-header">
   <nav class="container nav-wrap">
     <a href="#accueil" class="brand">🌼 Beautiful Family Life</a>
-    <ul class="nav">
+    <ul class="nav" role="navigation" aria-label="Navigation principale">
+      <li><a href="#accueil">Accueil</a></li>
       <li><a href="#tarifs">Tarifs</a></li>
       <li><a href="#modules">Modules</a></li>
       <li><a href="#communaute">Communauté</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#infographie">Infographie</a></li>
       <li><a href="#mentions">Mentions</a></li>
     </ul>
 
-    <!-- Sélecteur de plan pour la démo -->
+    <!-- Sélecteur de plan (démo UI : Offert/Premium) -->
     <div class="plan-switch" title="Changer de plan (démo)">
       <label for="planSelect">Mode :</label>
       <select id="planSelect">
@@ -33,37 +34,35 @@
 </header>
 
 <main>
+
   <!-- ACCUEIL -->
   <section id="accueil" class="section hero" aria-label="Accueil">
-    <picture>
-      <source srcset="page-d-accueil.webp" type="image/webp">
-      <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
-    </picture>
+    <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
   </section>
 
-  <!-- TARIFS -->
+  <!-- TARIFS & OFFRE PREMIUM (remplace l’ancienne infographie) -->
   <section id="tarifs" class="section" aria-label="Tarifs et Offre Premium">
-    <picture>
-      <source srcset="tarifs-et-offres-premium.webp" type="image/webp">
+    <div class="container">
+      <h2>Tarifs & Offre Premium</h2>
       <img class="full-img" src="tarifs-et-offres-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
-    </picture>
+    </div>
   </section>
 
-  <!-- MODULES (avec sous-onglets + gating) -->
+  <!-- MODULES (onglets + panneaux, compatible script.js) -->
   <section id="modules" class="section" aria-label="Modules et Fonctionnalités">
     <div class="container">
       <h2>Modules & fonctionnalités</h2>
 
       <div class="tabs" role="tablist" aria-label="Sous-modules">
         <button class="tab" data-tab="organisation" role="tab" aria-selected="true">Organisation</button>
-        <button class="tab" data-tab="bien-etre" role="tab">Bien‑être</button>
+        <button class="tab" data-tab="bien-etre" role="tab">Bien-être</button>
         <button class="tab" data-tab="repas" role="tab">Repas</button>
         <button class="tab" data-tab="documents" role="tab">Documents</button>
         <button class="tab" data-tab="communaute" role="tab">Communauté</button>
         <button class="tab" data-tab="sync" role="tab">Sync</button>
       </div>
 
-      <!-- Organisation (implémenté + gating) -->
+      <!-- Organisation -->
       <div class="tab-panel" data-panel="organisation" role="tabpanel">
         <div class="module-header">
           <p>Agenda partagé, tâches assignées, rappels.</p>
@@ -71,7 +70,6 @@
 
         <div class="toolbar">
           <button id="btnAddTask" class="btn btn-primary">+ Ajouter</button>
-
           <select id="filterAssigned"><option value="">Tous</option></select>
           <select id="filterStatus">
             <option value="">Statut</option>
@@ -79,7 +77,6 @@
             <option value="doing">En cours</option>
             <option value="done">Terminé</option>
           </select>
-
           <button id="btnShareCalendar" class="btn btn-premium" data-premium>Partager calendrier 🔒</button>
           <button id="btnNotify" class="btn btn-premium" data-premium>Activer rappels 🔒</button>
         </div>
@@ -89,13 +86,13 @@
         <dialog id="taskDialog">
           <form method="dialog" id="taskForm" class="form-grid">
             <h3 id="taskDialogTitle">Nouvelle tâche</h3>
-            <label> Titre
+            <label>Titre
               <input name="title" required>
             </label>
-            <label> Assignée à
+            <label>Assignée à
               <input name="assignedTo" placeholder="Papa / Maman / Enfant…">
             </label>
-            <label> Échéance
+            <label>Échéance
               <input type="datetime-local" name="due">
             </label>
 
@@ -111,14 +108,14 @@
               <span class="lock">🔒</span>
             </label>
 
-            <label> Priorité
+            <label>Priorité
               <select name="priority">
                 <option value="low">Basse</option>
                 <option value="med" selected>Moyenne</option>
                 <option value="high">Haute</option>
               </select>
             </label>
-            <label> Notes
+            <label>Notes
               <textarea name="notes" rows="3"></textarea>
             </label>
             <menu class="dialog-actions">
@@ -131,7 +128,7 @@
 
       <!-- Bien-être -->
       <div class="tab-panel" data-panel="bien-etre" role="tabpanel" hidden>
-        <div class="module-header"><p>Check‑in émotionnel, exercices guidés, journal de gratitude.</p></div>
+        <div class="module-header"><p>Check-in émotionnel, exercices guidés, journal de gratitude.</p></div>
         <div class="toolbar">
           <button id="btnAddMood" class="btn btn-primary">+ Saisir un état</button>
           <button class="btn btn-premium" data-premium>Voir historique & graphiques 🔒</button>
@@ -141,21 +138,37 @@
         </ul>
       </div>
 
-      <!-- Repas -->
+      <!-- Repas (structure compatible script.js si tu utilises la version avec repas complet) -->
       <div class="tab-panel" data-panel="repas" role="tabpanel" hidden>
         <div class="module-header"><p>Menus hebdo et liste de courses.</p></div>
         <div class="toolbar">
-          <button id="btnWeekGen" class="btn btn-premium" data-premium>Générer menus automatiques 🔒</button>
-          <select id="weekSelect"><option>Semaine actuelle</option></select>
+          <button id="btnWeekNew" class="btn">+ Nouvelle semaine</button>
+          <button id="btnWeekAuto" class="btn btn-premium" data-premium>Générer menus automatiques 🔒</button>
+          <select id="weekSelect" title="Semaine"></select>
+          <button id="btnWeekClear" class="btn">Vider</button>
+          <button id="btnExportMeals" class="btn">Exporter</button>
         </div>
         <div class="grid-2">
           <div class="card">
-            <h4>Menus</h4>
-            <div id="weekPlan">Lu —<br>Ma —<br>Me —<br>Je —<br>Ve —<br>Sa —<br>Di —</div>
+            <h4>Menus de la semaine</h4>
+            <div id="weekPlan" class="meal-grid"></div>
+            <datalist id="mealSuggestions">
+              <option>Pâtes bolo</option><option>Poulet rôti</option><option>Poisson au four</option>
+              <option>Omelette</option><option>Salade composée</option><option>Soupe maison</option>
+              <option>Tacos maison</option><option>Riz sauté</option><option>Gratin de légumes</option>
+              <option>Pizzas maison</option>
+            </datalist>
           </div>
           <div class="card">
             <h4>Liste de courses</h4>
-            <ul id="shoppingList" class="simple-list"></ul>
+            <div class="toolbar">
+              <input id="itemName" class="input" placeholder="Ajouter un ingrédient…">
+              <input id="itemQty" class="input" placeholder="Qté" style="width:80px">
+              <button id="btnAddItem" class="btn btn-primary">Ajouter</button>
+              <button id="btnExportList" class="btn">Exporter</button>
+              <button id="btnClearBought" class="btn">Nettoyer (achetés)</button>
+            </div>
+            <ul id="shoppingList" class="shopping"></ul>
           </div>
         </div>
       </div>
@@ -176,13 +189,13 @@
           <button class="btn btn-premium" data-premium>Nouveau post 🔒</button>
         </div>
         <ul class="card-list empty">
-          <li class="empty-state">Connectez‑vous pour publier (à venir).</li>
+          <li class="empty-state">Connectez-vous pour publier (à venir).</li>
         </ul>
       </div>
 
       <!-- Sync -->
       <div class="tab-panel" data-panel="sync" role="tabpanel" hidden>
-        <div class="module-header"><p>Synchronisation multi‑appareils (demo).</p></div>
+        <div class="module-header"><p>Synchronisation multi-appareils (demo).</p></div>
         <div class="card">
           <div>Partage familial (5 membres) 🔒</div>
           <div><button class="btn btn-premium" data-premium>Activer 🔒</button></div>
@@ -191,28 +204,14 @@
     </div>
   </section>
 
-  <!-- COMMUNAUTÉ (image existante) -->
+  <!-- COMMUNAUTÉ (image) -->
   <section id="communaute" class="section" aria-label="Communauté et Ressources">
-    <picture>
-      <source srcset="communauté-et-ressources.webp" type="image/webp">
-      <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
-    </picture>
+    <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
   </section>
 
   <!-- CONTACT -->
   <section id="contact" class="section" aria-label="Contact et Support">
-    <picture>
-      <source srcset="contact-et-support.webp" type="image/webp">
-      <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
-    </picture>
-  </section>
-
-  <!-- INFOGRAPHIE -->
-  <section id="infographie" class="section" aria-label="Infographie gratuit vs Premium">
-    <picture>
-      <source srcset="infographie-gratuit-vs-premium.webp" type="image/webp">
-      <img class="full-img" src="infographie-gratuit-vs-premium.png" alt="Infographie gratuit vs Premium" loading="lazy">
-    </picture>
+    <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
   </section>
 
   <!-- MENTIONS -->
