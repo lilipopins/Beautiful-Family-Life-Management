@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Beautiful Family Life — Organisation familiale sans stress</title>
+  <meta name="description" content="Beautiful Family Life : présentation, tarifs, modules, communauté, contact et infographie — tout sur une page (affichage par section).">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Mode onglets : une seule section visible à la fois -->
+  <style>
+    main .section { display: none; }
+    main .section.active { display: block; }
+
+    /* Petite animation d'apparition (optionnelle) */
+    .fade-enter { opacity: 0; transform: translateY(8px); }
+    .fade-enter.fade-enter-active {
+      opacity: 1; transform: none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    /* Accessibilité et confort */
+    html { scroll-behavior: smooth; }
+    .full-img, .hero-img { width:100%; height:auto; display:block; }
+    .section { padding: 36px 0; }
+    @media (prefers-reduced-motion: reduce){
+      html { scroll-behavior: auto; }
+      .fade-enter { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <nav class="container nav-wrap">
+    <a href="#accueil" class="brand">🌼 Beautiful Family Life</a>
+    <ul class="nav">
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#communaute">Communauté</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#infographie">Infographie</a></li>
+      <li><a href="#mentions">Mentions</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- ACCUEIL -->
+  <section id="accueil" class="section hero" aria-label="Accueil">
+    <picture>
+      <source srcset="page-d-accueil.webp" type="image/webp">
+      <img class="hero-img" src="page-d-accueil.png" alt="Page d’accueil — Beautiful Family Life" loading="eager">
+    </picture>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" class="section" aria-label="Tarifs et Offre Premium">
+    <picture>
+      <source srcset="tarifs-et-offres-premium.webp" type="image/webp">
+      <img class="full-img" src="tarifs-et-offres-premium.png" alt="Tarifs & Offre Premium" loading="lazy">
+    </picture>
+  </section>
+
+  <!-- MODULES -->
+  <section id="modules" class="section" aria-label="Modules et Fonctionnalités">
+    <picture>
+      <source srcset="modules-et-fonctionnalites.webp" type="image/webp">
+      <img class="full-img" src="modules-et-fonctionnalites.png" alt="Modules et Fonctionnalités" loading="lazy">
+    </picture>
+  </section>
+
+  <!-- COMMUNAUTÉ -->
+  <section id="communaute" class="section" aria-label="Communauté et Ressources">
+    <picture>
+      <source srcset="communauté-et-ressources.webp" type="image/webp">
+      <img class="full-img" src="communauté-et-ressources.png" alt="Communauté et Ressources" loading="lazy">
+    </picture>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" aria-label="Contact et Support">
+    <picture>
+      <source srcset="contact-et-support.webp" type="image/webp">
+      <img class="full-img" src="contact-et-support.png" alt="Contact et Support" loading="lazy">
+    </picture>
+  </section>
+
+  <!-- INFOGRAPHIE -->
+  <section id="infographie" class="section" aria-label="Infographie gratuit vs Premium">
+    <picture>
+      <source srcset="infographie-gratuit-vs-premium.webp" type="image/webp">
+      <img class="full-img" src="infographie-gratuit-vs-premium.png" alt="Infographie gratuit vs Premium" loading="lazy">
+    </picture>
+  </section>
+
+  <!-- MENTIONS -->
+  <section id="mentions" class="section legal" aria-label="Mentions légales, CGU et Confidentialité">
+    <div class="container legal-inner">
+      <h2>Mentions légales · CGU · Confidentialité</h2>
+      <p><strong>Éditeur :</strong> Beautiful Family Life</p>
+      <p><strong>Contact :</strong> support@beautifulfamily.life</p>
+      <p>En utilisant ce site, vous acceptez nos Conditions Générales d’Utilisation et notre Politique de Confidentialité.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  © 2025 Beautiful Family Life — Tous droits réservés
+</footer>
+
+<script>
+  // Mode "onglets" : afficher une seule section à la fois
+  const links  = [...document.querySelectorAll('.nav a')];
+  const secs   = [...document.querySelectorAll('main .section')];
+
+  function setActiveLink(hash) {
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash));
+  }
+
+  function showSection(hash, withAnim = true) {
+    if (!hash || !document.querySelector(hash)) hash = '#accueil';
+    secs.forEach(s => {
+      const isTarget = ('#' + s.id) === hash;
+      if (isTarget) {
+        s.classList.add('active');
+        if (withAnim) {
+          s.classList.add('fade-enter');
+          void s.offsetWidth; // reflow
+          s.classList.add('fade-enter-active');
+          setTimeout(() => s.classList.remove('fade-enter', 'fade-enter-active'), 260);
+        }
+      } else {
+        s.classList.remove('active');
+      }
+    });
+    setActiveLink(hash);
+    history.replaceState(null, '', hash);
+    const h = document.querySelector(hash + ' h1, ' + hash + ' h2');
+    if (h) h.setAttribute('tabindex','-1'), h.focus({preventScroll:true});
+  }
+
+  links.forEach(a => {
+    a.addEventListener('click', e => {
+      const hash = a.getAttribute('href');
+      if (hash && hash.startsWith('#')) {
+        e.preventDefault();
+        showSection(hash);
+      }
+    });
+  });
+
+  window.addEventListener('hashchange', () => showSection(location.hash));
+  // Init
+  showSection(location.hash, false);
+</script>
+</body>
+</html>
